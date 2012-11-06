@@ -31,10 +31,57 @@
 # Code:
 
 
-# TODO
-# temp_c2f () {
-#     ;
-# }
+float_round_off () {
+    awk -v float=$1 '
+BEGIN {
+  CONVFMT="%d";
+  i=float+0 "";
+  d=float-i;
+  if (d<0.5)
+    print i;
+  else
+    print i+1;
+}'
+}
+
+# temperature, Celsius -> Fahrenheit
+temp_c2f () {
+    float_round_off `awk "BEGIN {print $1*9/5+32}"`
+}
+
+# temperature, Fahrenheit -> Celsius
+temp_f2c () {
+    float_round_off `awk "BEGIN {print ($1-32)*5/9}"`
+}
+
+# weather font, auto mode
+wf_automode () {
+    if [ `date +%H` -ge 18 ]; then
+        wf_nightmode $1
+    else
+        wf_daymode $1
+    fi
+}
+
+# weather font, use day mode
+wf_daymode () {
+    echo $1 | tr "Olmnopqrstu" "abcdefghijk"
+}
+
+# weather font, use night mode
+wf_nightmode () {
+    echo $1 | tr "abcdefghijk" "Olmnopqrstu"
+}
+
+get_weather_data () {
+    all_data=`awk "/future_day_$future_day/,/}/" $weather_data_file \
+        | sed -e '1d' -e '$d' -e 's/^\s\+//'`
+    if [ $data_type = "ALL" ]; then
+        echo "$all_data"
+    else
+        echo "$all_data" | grep $data_type | awk -F= '{print $2}'
+    fi
+}
 
 # write_wt
 # write_datatype

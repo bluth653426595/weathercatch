@@ -18,7 +18,6 @@
 
 # Change Log:
 # - 0.1
-#   + create
 #
 #
 # This program is free software; you can redistribute it and/or
@@ -42,11 +41,33 @@
 
 
 parser_name=baidu
+if [ $debug ]; then
+    echo $debug_prefix parser_name: $parser_name
+fi
 
-get_weather_info () {
-    URL=http://www.baidu.com/s?wd=$1
-    w3m -dump $URL>$weather_data_file
+update_weather_data () {
+    if [ ! $arg ]; then arg=tianqi; fi
+    URL=http://www.baidu.com/s?wd=$arg
+    w3m -dump $URL>$weather_tmp_file
 }
+
+parser_help () {
+    cat <<EOF
+TODO
+future_day_0 () {
+WF=a
+}
+EOF
+}
+
+parser_version () {
+    echo 0.1
+}
+
+
+if [ $debug ]; then
+    echo $debug_prefix parser load success
+fi
 
 #
 # baidu.sh ends here
