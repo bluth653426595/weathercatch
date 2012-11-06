@@ -3,16 +3,18 @@
 # weather_catcher.sh ---
 #
 # Filename: weather_catcher.sh
+# Description: a simple tool to get weather info in the web page through parsing the content
 # Author: Xu FaSheng
-# Maintainer: Xu FaSheng
-# Created: Mon Nov  5 21:26:16 2012 (+0800)
+# Created: 2012.11.05
 # Version: 0.1
 # Last-Updated:
 #           By:
 #     Update #: 0
 # URL:
-# Keywords: weather web site parser
+# Keywords: weather web parse
 #
+
+# This file is a part of weather_catcher
 
 # Change Log:
 # - 0.1
@@ -38,14 +40,13 @@
 
 # Code:
 
-## help messages
-usage () {
+help () {
     cat <<EOF
 Description:
     weather_catcher is a simple tool to get weather info in the web page through parsing the content.
 
 Usage:
-    weather_catcher.sh [<-p parser> <-a argument>] [-d datatype] [-f futuredays] [-l] [-D] [-h]
+    weather_catcher.sh [-p parser] [-a argument] [-d datatype] [-n nightmode] [-f futuredays] [-l] [-D] [-h] [-v]
 
 Options:
     -p, --parser=[PARSER]
@@ -57,8 +58,9 @@ Options:
         script file path here.
         [default: baidu]
     -a, --argument=[ARGUMENT]
-        The argument has different meaning for different parser,
-        the meaning for builtin parser could be:
+        The argument has different meaning for each parser,
+        you should have a look at its help message.
+        And the arguments's meaning for builtin parsers could be:
           baidu:         the keyword to search which results will
                          own weather info you expect, in fact, it
                          just could be a city name
@@ -66,36 +68,40 @@ Options:
                          info you expect
           yahoo-weather: the complete url which page owns weather
                          info you expect
-        And if you use a custom parser, you should try to understand
-        its argument's meaning by reading the document.
-        [default: tianqi]
+        [default: different for each parser]
     -d, --data-type=[DATATYPE]
         The builtin data type could be:
-          WF:  weather font output, auto check day/night mode
-          WFD: weather font output, day mode
-          WFN: weather font output, night mode
+          WF:  weather font output
           WT:  weather text
           LT:  low temperature
           HT:  high temperature
+          CT:  current temperature
           WD:  wind direction
           WS:  wind speed
           HM:  humidity
-        And you coulde use other data type which works for the
-        special parser.
-        [default: WT]
+          LN:  location name
+          ALL: all support data types
+        Note: the supported data types is different for each parser,
+              you'd better have a look at the parser's help message.
+        [default: WT, maybe different for each parser]
+    -n, --night-mode=[NIGHTMODE]
+        Will effect some data type's value, such as WF.
+        The night mode could be:
+          day, night, auto
+        [default: auto]
     -f, --future=[NUM]
         Get weather info in the future NUM days,
         for example, 0 means today, 1 means tomorrow.
-        And not all the parser support this options.
+        Note: not all the parser support this options.
         [default: 0]
     -l, --use-last-data
         Use last weather info.
     -D, --debug
         Use debug mode, for testing.
     -h, --help
-        Print help message and exits.
+        Prints main or parser's help message and exits.
     -v, --version
-        Prints the version information and exits.
+        Prints main or parser's version information and exits.
 
 EOF
     exit 1
@@ -103,6 +109,7 @@ EOF
 
 version () {
     echo 0.1
+    exit 1
 }
 
 ## assistant functions
@@ -114,9 +121,14 @@ get_weather_info () {
     URL=http://www.baidu.com/s?wd=$1
     w3m -dump $URL>$weather_data_file
 }
+# parser_help () {
+# }
+# parser_version () {
+# }
 
 ## global variables
 weather_data_file=/tmp/weather_catcher.txt
+weather_tmp_file=/tmp/weather_catcher.tmp
 
 ## dispatch options
 parser=
@@ -147,3 +159,13 @@ usage
 
 #
 # weather_catcher.sh ends here
+        # the meaning for builtin parser could be:
+        #   baidu:         the keyword to search which results will
+        #                  own weather info you expect, in fact, it
+        #                  just could be a city name
+        #   weather-cn:    the complete url which page owns weather
+        #                  info you expect
+        #   yahoo-weather: the complete url which page owns weather
+        #                  info you expect
+        # And if you use a custom parser, you should try to understand
+        # its argument's meaning by reading the document.
