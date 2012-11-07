@@ -73,16 +73,6 @@ wf_nightmode () {
     echo $1 | tr "abcdefghijk" "Olmnopqrstu"
 }
 
-get_weather_data () {
-    all_data=`awk "/future_day_$future_day/,/}/" $weather_data_file \
-        | sed -e '1d' -e '$d' -e 's/^\s\+//'`
-    if [ $data_type = "ALL" ]; then
-        echo "$all_data"
-    else
-        echo "$all_data" | grep $data_type | awk -F= '{print $2}'
-    fi
-}
-
 debug () {
     if [ $debug ]; then
         echo "[D] " $debug_prefix "$@"
@@ -95,6 +85,41 @@ debug_lines () {
     done <<< "$1"
 }
 
+set_data_type () {
+    name=$1
+    value=$2
+    if [ -z $data_types_to_write ]; then
+        data_types_to_write="$name=$value"
+    else
+        data_types_to_write="$data_types_to_write"$'\n'"$name=$value"
+    fi
+    debug "  $name=$value"
+}
+
+write_data_types () {
+    # if first time write data, clear the old data
+    if [ ! $old_data_is_cleared ]; then
+        echo > $weather_data_file
+        old_data_is_cleared=t
+        debug "old data is cleared"
+    fi
+
+    echo "future_day_$1 () {" >> $weather_data_file
+    echo "$data_types_to_write" >> $weather_data_file
+    echo "}" >> $weather_data_file
+    data_types_to_write=
+}
+
+get_weather_data () {
+    all_data=`awk "/future_day_$future_day/,/}/" $weather_data_file \
+        | sed -e '1d' -e '$d' -e 's/^\s\+//'`
+    if [ $data_type = "ALL" ]; then
+        echo "$all_data"
+    else
+        # TODO
+        echo "$all_data" | grep $data_type | awk -F= '{print $2}'
+    fi
+}
 
 # a b c    a 1
 # 1 2 3 -> b 2
@@ -164,11 +189,6 @@ general_weather_text2font_cn () {
         echo 'D'
     fi
 }
-
-
-# write_wt
-# write_datatype
-# complete_wfn
 
 #
 # functions.sh ends here

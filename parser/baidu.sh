@@ -41,15 +41,15 @@
 
 
 parser_name=baidu
-debug parser_name: $parser_name
+debug "parser_name: $parser_name"
 
 
 update_weather_data () {
-    if [ ! $arg ]; then arg=天气; fi
+    if [ ! $arg ]; then arg=weather; fi
     URL=http://www.baidu.com/s?wd=$arg
 
     # dump web page
-    debug dumping url: $URL
+    debug "dumping url: $URL"
     # TODO
     # w3m -dump $URL>$weather_tmp_file
 
@@ -65,22 +65,23 @@ parse_data () {
 /中国气象局/{if (enable_print) exit}
 enable_print{print}
 ' $weather_tmp_file`
-    debug weather block:
+    debug "weather block:"
     debug_lines "$weather_block"
 
     # get location name
     LN=`echo "$weather_block" | head -1 | sed 's/天气预报.*$//'`
-    debug LN=$LN
 
     # get other weather data
     weather_block=`echo "$weather_block" | sed -e '1d' | awk 'NF>1'`
     weather_block=`clear_w3m_neverfill_block "$weather_block"`
-    debug weather block[fixed]
+    debug "weather block[fixed]"
     debug_lines "$weather_block"
     weather_block=`reverse_table "$weather_block"`
     i=0
     while read line; do
-        debug future_day_$i
+        debug "future_day_$i"
+        set_data_type "LN" $LN
+
         # temperature
         temp_data=`echo $line | awk '{print $2}'`
         temp_left=`echo $temp_data | awk -F～ '{print $1}' | sed 's/\([0-9]\+\).*/\1/'`
@@ -93,21 +94,22 @@ enable_print{print}
             HT=$temp_right
             LT=$temp_left
         fi
-        debug "  LT="$LT
-        debug "  HT="$HT
+        set_data_type "LT" $LT
+        set_data_type "HT" $HT
 
         # weather text
         WT=`echo $line | awk '{print $3}'`
-        debug "  WT="$WT
+        set_data_type "WT" $WT
 
         # weather font TODO
         WF=`general_weather_text2font_cn "$WT"`
-        debug "  WF="$WF
+        set_data_type "WF" $WF
 
         # wind speed text
         WST=`echo $line | awk '{print $4}'`
-        debug "  WST="$WST
+        set_data_type "WST" $WST
 
+        write_data_types $i
         i=$(($i+1))
     done <<< "$weather_block"
 }
@@ -122,10 +124,10 @@ EOF
 }
 
 parser_version () {
-    echo 0.1 build_20121107
+    echo version 0.1, build_20121107
 }
 
-debug parser load success
+debug "parser load success"
 
 
 #

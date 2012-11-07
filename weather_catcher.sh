@@ -129,6 +129,7 @@ EOF
 
 version () {
     echo 0.1
+    # TODO
     exit 1
 }
 
