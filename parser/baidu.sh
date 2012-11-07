@@ -41,13 +41,13 @@
 
 
 parser_name=baidu
-if [ $debug ]; then
-    echo $debug_prefix parser_name: $parser_name
-fi
+debug parser_name: $parser_name
+
 
 update_weather_data () {
     if [ ! $arg ]; then arg=tianqi; fi
     URL=http://www.baidu.com/s?wd=$arg
+    debug URL: $URL
     w3m -dump $URL>$weather_tmp_file
 }
 
@@ -64,10 +64,8 @@ parser_version () {
     echo 0.1
 }
 
+debug parser load success
 
-if [ $debug ]; then
-    echo $debug_prefix parser load success
-fi
 
 #
 # baidu.sh ends here

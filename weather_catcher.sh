@@ -133,7 +133,6 @@ version () {
 ## global variables
 weather_data_file=/tmp/weather_catcher.txt
 weather_tmp_file=/tmp/weather_catcher.tmp
-debug_prefix="[D] "
 
 ## dispatch options
 parser=

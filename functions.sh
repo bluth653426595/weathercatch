@@ -83,6 +83,11 @@ get_weather_data () {
     fi
 }
 
+debug () {
+    if [ $debug ]; then
+        echo "[D] " $debug_prefix "$@"
+    fi
+}
 # write_wt
 # write_datatype
 # complete_wfn
