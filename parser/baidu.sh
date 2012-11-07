@@ -10,7 +10,7 @@
 #     Update #: 0
 # Keywords: weather_catcher parser
 # Compatibility: weather_catcher_v0.1
-#
+#   depends on w3m v0.5.3
 #   May work on older versions but this is not guaranteed.
 #
 
@@ -45,10 +45,71 @@ debug parser_name: $parser_name
 
 
 update_weather_data () {
-    if [ ! $arg ]; then arg=tianqi; fi
+    if [ ! $arg ]; then arg=天气; fi
     URL=http://www.baidu.com/s?wd=$arg
-    debug URL: $URL
-    w3m -dump $URL>$weather_tmp_file
+
+    # dump web page
+    debug dumping url: $URL
+    # TODO
+    # w3m -dump $URL>$weather_tmp_file
+
+    parse_data
+}
+
+parse_data () {
+    IFS=''
+
+    # get valid weather info section in the page
+    weather_block=`awk '
+/一周天气预报/{enable_print=1}
+/中国气象局/{if (enable_print) exit}
+enable_print{print}
+' $weather_tmp_file`
+    debug weather block:
+    debug_lines "$weather_block"
+
+    # get location name
+    LN=`echo "$weather_block" | head -1 | sed 's/天气预报.*$//'`
+    debug LN=$LN
+
+    # get other weather data
+    weather_block=`echo "$weather_block" | sed -e '1d' | awk 'NF>1'`
+    weather_block=`clear_w3m_neverfill_block "$weather_block"`
+    debug weather block[fixed]
+    debug_lines "$weather_block"
+    weather_block=`reverse_table "$weather_block"`
+    i=0
+    while read line; do
+        debug future_day_$i
+        # temperature
+        temp_data=`echo $line | awk '{print $2}'`
+        temp_left=`echo $temp_data | awk -F～ '{print $1}' | sed 's/\([0-9]\+\).*/\1/'`
+        temp_right=`echo $temp_data | awk -F～ '{print $2}' | sed 's/\([0-9]\+\).*/\1/'`
+        if [ -z $temp_right ]; then temp_right=$temp_left; fi
+        if [ $temp_left -ge $temp_right ]; then
+            HT=$temp_left
+            LT=$temp_right
+        else
+            HT=$temp_right
+            LT=$temp_left
+        fi
+        debug "  LT="$LT
+        debug "  HT="$HT
+
+        # weather text
+        WT=`echo $line | awk '{print $3}'`
+        debug "  WT="$WT
+
+        # weather font TODO
+        WF=`general_weather_text2font_cn "$WT"`
+        debug "  WF="$WF
+
+        # wind speed text
+        WST=`echo $line | awk '{print $4}'`
+        debug "  WST="$WST
+
+        i=$(($i+1))
+    done <<< "$weather_block"
 }
 
 parser_help () {
@@ -61,7 +122,7 @@ EOF
 }
 
 parser_version () {
-    echo 0.1
+    echo 0.1 build_20121107
 }
 
 debug parser load success

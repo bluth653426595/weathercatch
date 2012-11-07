@@ -88,6 +88,84 @@ debug () {
         echo "[D] " $debug_prefix "$@"
     fi
 }
+
+debug_lines () {
+    while read line; do
+        debug " " $line
+    done <<< "$1"
+}
+
+
+# a b c    a 1
+# 1 2 3 -> b 2
+#          c 3
+reverse_table () {
+    echo "$1" | awk '
+{
+  if (max_nf < NF) max_nf=NF
+  max_nr=NR
+  for(i=1; i<=NF; i++)
+    vector[i, NR]=$i
+}
+END {
+  for(i=1; i<=max_nf; i++) {
+    for(j=1; j<=max_nr; j++)
+      printf("%s ", vector[i, j])
+    printf("\n")
+  }
+}'
+}
+
+# a            b            [neverfill]      a  b  c
+# 1            [neverfill]  c            ->  1  2  3
+#              2            3
+clear_w3m_neverfill_block () {
+    fixed_table=`echo "$1" | sed 's/^  /[neverfill]/'`
+    reversed_table=`reverse_table "$fixed_table"`
+    cleared_table=`echo "$reversed_table" | awk '
+{
+  for(i=1; i<=NF; i++) {
+    if ($i != "[neverfill]")
+      printf("%s ", $i)
+  }
+  printf("\n")
+}'`
+    reverse_table "$cleared_table"
+}
+
+general_weather_text2font_cn () {
+    if echo "$1" | grep -Eiq '雾'; then
+        echo 'F'
+    elif echo "$1" | grep -Eiq '台风|飓风'; then
+        echo 'v'
+    elif echo "$1" | grep -Eiq '龙卷风'; then
+        echo 'w'
+    elif echo "$1" | grep -Eiq '中雪|大雪'; then
+        echo 'j'
+    elif echo "$1" | grep -Eiq '雪'; then
+        echo 'k'
+    elif echo "$1" | grep -Ei '雷' | grep -Eiq '雨'; then
+        echo 'i'
+    elif echo "$1" | grep -Eiq '雷'; then
+        echo 'f'
+    elif echo "$1" | grep -Eiq '中雨|大雨|暴雨'; then
+        echo 'h'
+    elif echo "$1" | grep -Eiq '雨'; then
+        echo 'g'
+    elif echo "$1" | grep -Eiq '多云转晴|晴转多云'; then
+        echo 'b'
+    elif echo "$1" | grep -Eiq '多云'; then
+        echo 'c'
+    elif echo "$1" | grep -Eiq '晴'; then
+        echo 'a'
+    elif echo "$1" | grep -Eiq '阴'; then
+        echo 'e'
+    else
+        echo 'D'
+    fi
+}
+
+
 # write_wt
 # write_datatype
 # complete_wfn

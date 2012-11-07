@@ -76,13 +76,15 @@ Options:
           HT:  high temperature
           CT:  current temperature
           WD:  wind direction
+          WDT: wind direction text
           WS:  wind speed
+          WST: wind speed text
           HM:  humidity
           LN:  location name
           ALL: all support data types
         Note: the supported data types is different for each parser,
               you'd better have a look at the parser's help message.
-        [default: ALL, maybe different for each parser]
+        [default: ALL]
     -n, --night-mode=[NIGHTMODE]
         Will effect some data type's value, such as WF.
         The night mode could be:
