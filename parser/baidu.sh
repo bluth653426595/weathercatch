@@ -40,14 +40,14 @@
 # Code:
 
 
-parser_name=baidu
+parser_name="baidu"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
     if [ ! $arg ]; then arg=weather; fi
     # TODO
-    # URL=http://www.baidu.com/s?wd=$arg
-    URL=www.baidu.com/s?wd=$arg
+    # URL="http://www.baidu.com/s?wd=$arg"
+    URL="www.baidu.com/s?wd=$arg"
 
     # dump web page
     debug "dumping url: $URL"
@@ -99,7 +99,7 @@ enable_print{print}
         WT=`echo $line | awk '{print $3}'`
         set_data_type "WT" $WT
 
-        # weather font TODO
+        # weather font
         WF=`general_weather_text2font_cn "$WT"`
         set_data_type "WF" $WF
 
@@ -128,7 +128,7 @@ EOF
 }
 
 parser_version () {
-    echo version 0.1, build_20121107
+    echo "version 0.1, build_20121108"
 }
 
 debug "parser load success"

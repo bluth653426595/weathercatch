@@ -49,7 +49,7 @@ Usage:
 
 Options:
     -p, --parser=[PARSER]
-        The builtin parser could be:
+        The built-in parser could be:
           baidu
           weather-cn
           yahoo-weather
@@ -59,7 +59,7 @@ Options:
     -a, --argument=[ARGUMENT]
         The argument has different meaning for each parser,
         you should have a look at its help message.
-        And the arguments's meaning for builtin parsers could be:
+        And the arguments's meaning for built-in parsers could be:
           baidu:         the keyword to search which results will
                          own weather info you expect, in fact, it
                          just could be a city name
@@ -69,7 +69,7 @@ Options:
                          info you expect
         [default: different for each parser]
     -d, --data-type=[DATATYPE]
-        The builtin data type could be:
+        The built-in data type could be:
           WF:  weather font output
           WT:  weather text
           LT:  low temperature
@@ -128,8 +128,12 @@ EOF
 }
 
 version () {
-    echo 0.1
-    # TODO
+    echo "version 0.1"
+    echo "built-in parsers:"
+    for p in "./parser/*.sh"; do
+        source $p
+        printf "  %s: %s\n" "$parser_name" "`parser_version`"
+    done
     exit 1
 }
 
