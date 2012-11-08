@@ -80,6 +80,7 @@ debug () {
 }
 
 debug_lines () {
+    IFS=''
     while read line; do
         debug " " $line
     done <<< "$1"
@@ -141,16 +142,16 @@ END {
 }'
 }
 
-# a            b            [neverfill]      a  b  c
-# 1            [neverfill]  c            ->  1  2  3
-#              2            3
-clear_w3m_neverfill_block () {
-    fixed_table=`echo "$1" | sed 's/^  /[neverfill]/'`
+# a    b           [target]      a  b  c
+# 1    [target]    c         ->  1  2  3
+#      2           3
+clear_w3m_target_block () {
+    fixed_table=`echo "$1" | sed 's/^  /$2/'`
     reversed_table=`reverse_table "$fixed_table"`
-    cleared_table=`echo "$reversed_table" | awk '
+    cleared_table=`echo "$reversed_table" | awk -v tb=$2 '
 {
   for(i=1; i<=NF; i++) {
-    if ($i != "[neverfill]")
+    if ($i !~ tb)
       printf("%s ", $i)
   }
   printf("\n")

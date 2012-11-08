@@ -102,7 +102,7 @@ Options:
           f, fahrenheit
         [default: c]
     -l, --use-last-data
-        Use last weather info.
+        Use last weather data if possible.
     -D, --debug
         Use debug mode, for testing.
     -h, --help

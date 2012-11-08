@@ -46,19 +46,18 @@ debug "parser_name: $parser_name"
 
 update_weather_data () {
     if [ ! $arg ]; then arg=weather; fi
-    URL=http://www.baidu.com/s?wd=$arg
+    # TODO
+    # URL=http://www.baidu.com/s?wd=$arg
+    URL=www.baidu.com/s?wd=$arg
 
     # dump web page
     debug "dumping url: $URL"
-    # TODO
-    # w3m -dump $URL>$weather_tmp_file
+    w3m -dump $URL>$weather_tmp_file
 
     parse_data
 }
 
 parse_data () {
-    IFS=''
-
     # get valid weather info section in the page
     weather_block=`awk '
 /一周天气预报/{enable_print=1}
@@ -73,7 +72,7 @@ enable_print{print}
 
     # get other weather data
     weather_block=`echo "$weather_block" | sed -e '1d' | awk 'NF>1'`
-    weather_block=`clear_w3m_neverfill_block "$weather_block"`
+    weather_block=`clear_w3m_target_block "$weather_block" "[neverfill]"`
     debug "weather block[fixed]"
     debug_lines "$weather_block"
     weather_block=`reverse_table "$weather_block"`
