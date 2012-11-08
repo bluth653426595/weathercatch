@@ -73,19 +73,6 @@ wf_nightmode () {
     echo $1 | tr "abcdefghijk" "Olmnopqrstu"
 }
 
-debug () {
-    if [ $debug ]; then
-        echo "[D] " $debug_prefix "$@"
-    fi
-}
-
-debug_lines () {
-    IFS=''
-    while read line; do
-        debug " " $line
-    done <<< "$1"
-}
-
 set_data_type () {
     name=$1
     value=$2

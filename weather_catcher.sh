@@ -110,7 +110,7 @@ Options:
     -v, --version
         Prints main or parser's version information and exits.
 
-Examples: TODO
+Examples:
     - print all weather info today
       weather_catcher.sh
       weather_catcher.sh -p baidu -a tianqi -d ALL
@@ -131,6 +131,19 @@ version () {
     echo 0.1
     # TODO
     exit 1
+}
+
+debug () {
+    if [ $debug ]; then
+        echo "[D] " $debug_prefix "$@"
+    fi
+}
+
+debug_lines () {
+    IFS=''
+    while read line; do
+        debug " " $line
+    done <<< "$1"
 }
 
 ## global variables

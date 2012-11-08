@@ -43,7 +43,6 @@
 parser_name=baidu
 debug "parser_name: $parser_name"
 
-
 update_weather_data () {
     if [ ! $arg ]; then arg=weather; fi
     # TODO
@@ -115,10 +114,16 @@ enable_print{print}
 
 parser_help () {
     cat <<EOF
-TODO
-future_day_0 () {
-WF=a
-}
+Support data types:
+    WF:  weather font output
+    WT:  weather text
+    LT:  low temperature
+    HT:  high temperature
+    WST: wind speed text
+    LN:  location name
+Support max future days: 2
+Limits:
+    Should only work for Chinese friends.
 EOF
 }
 
