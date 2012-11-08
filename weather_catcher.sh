@@ -151,8 +151,8 @@ debug_lines () {
 }
 
 ## global variables
-weather_data_file=/tmp/weather_catcher.txt
-weather_tmp_file=/tmp/weather_catcher.tmp
+weather_data_file="/tmp/weather_catcher.txt"
+weather_tmp_file="/tmp/weather_catcher.tmp"
 
 ## dispatch options
 parser=
@@ -176,18 +176,18 @@ eval set -- "$options"
 while [ $# -gt 0 ]
 do
     case $1 in
-        -p|--parser) parser=$2; shift;;
-        -a|--argument) arg=$2; shift;;
-        -d|--data-type) data_type=$2; shift;;
-        -n|--night-mode) night_mode=$2; shift;;
-        -f|--future-day) future_day=$2; shift;;
-        -t|--temp-unit) temp_unit=$2; shift;;
+        -p|--parser)        parser="$2"; shift;;
+        -a|--argument)      arg="$2"; shift;;
+        -d|--data-type)     data_type="$2"; shift;;
+        -n|--night-mode)    night_mode="$2"; shift;;
+        -f|--future-day)    future_day="$2"; shift;;
+        -t|--temp-unit)     temp_unit="$2"; shift;;
         -l|--use-last-data) use_last_data=t;;
-        -D|--debug) debug=t;;
-        -h|--help) help=t;;
-        -v|--version) version=t;;
-        --) shift; break ;;
-        * ) break ;;
+        -D|--debug)         debug=t;;
+        -h|--help)          help=t;;
+        -v|--version)       version=t;;
+        --)                 shift; break ;;
+        *)                  break ;;
     esac
     shift
 done
@@ -208,26 +208,26 @@ done
 # select parser
 parser_script=
 if [ -z "$parser" ]; then
-    parser_script=./parser/baidu.sh
-elif [ $parser = "baidu" ]; then
-    parser_script=./parser/baidu.sh
+    parser_script="./parser/baidu.sh"
+elif [ "$parser" = "baidu" ]; then
+    parser_script="./parser/baidu.sh"
 else
-    parser_script=$parser
+    parser_script="$parser"
 fi
 
 # show help message
-if [ $help ]; then
-    if [ $parser ]; then
-        source $parser_script
+if [ "$help" ]; then
+    if [ "$parser" ]; then
+        source "$parser_script"
         parser_help
         exit
     else
         help
     fi
 fi
-if [ $version ]; then
-    if [ $parser ]; then
-        source $parser_script
+if [ "$version" ]; then
+    if [ "$parser" ]; then
+        source "$parser_script"
         parser_version
         exit
     else
@@ -236,7 +236,7 @@ if [ $version ]; then
 fi
 
 ## assistant functions
-source ./functions.sh
+source "./functions.sh"
 
 ## variable and function should be redefined in parser
 parser_name=
@@ -254,6 +254,13 @@ update_weather_data () {
     # }
     echo "warnning, function need to be redefined"
 }
+get_weather_data_hook () {
+    # if the parser want to operate some special data type, could
+    # redefine this function, and output something, then function
+    # 'get_weather_data' will use the output content instead its,
+    # and maybe will use the global variable $data_type here.
+    echo ""
+}
 parser_help () {
     echo "warnning, function need to be redefined"
 }
@@ -262,10 +269,10 @@ parser_version () {
 }
 
 ## main content
-source $parser_script
+source "$parser_script"
 
-if [[ -f $weather_data_file && -s $weather_data_file ]]; then
-    if [ ! $use_last_data ]; then
+if [[ -f "$weather_data_file" && -s "$weather_data_file" ]]; then
+    if [ ! "$use_last_data" ]; then
         update_weather_data
     fi
 else

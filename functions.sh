@@ -99,14 +99,36 @@ write_data_types () {
 }
 
 get_weather_data () {
+    # operate hook first
+    hook_result=`get_weather_data_hook`
+    if [ -n "$hook_result" ]; then
+        echo "$hook_result"
+        return
+    fi
+
     all_data=`awk "/future_day_$future_day/,/}/" $weather_data_file \
         | sed -e '1d' -e '$d' -e 's/^\s\+//'`
-    if [ $data_type = "ALL" ]; then
+    if [ "$data_type" = "ALL" ]; then
         echo "$all_data"
-    else
-        # TODO
-        echo "$all_data" | grep $data_type | awk -F= '{print $2}'
+        return
     fi
+    value=`echo "$all_data" | grep $data_type | awk -F= '{print $2}'`
+    case "$data_type" in
+        WF)                     # weather font, check day or night mode
+            if [ "$night_mode" = "day" ]; then
+                value=`wf_daymode "$value"`
+            elif [ "$night_mode" = "night" ]; then
+                value=`wf_nightmode "$value"`
+            elif [ "$night_mode" = "auto" ]; then
+                value=`wf_automode "$value"`
+            fi;;
+        LT|HT|CT)               # temperature unit
+            # default temp unit in data file should be celsius
+            if [ "$temp_unit" = "f" ]; then
+                value=`temp_c2f "$value"`
+            fi;;
+    esac
+    echo "$value"
 }
 
 # a b c    a 1
