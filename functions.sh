@@ -169,35 +169,22 @@ clear_w3m_target_block () {
 }
 
 general_weather_text2font_cn () {
-    if echo "$1" | grep -Eiq '雾'; then
-        echo 'F'
-    elif echo "$1" | grep -Eiq '台风|飓风'; then
-        echo 'v'
-    elif echo "$1" | grep -Eiq '龙卷风'; then
-        echo 'w'
-    elif echo "$1" | grep -Eiq '中雪|大雪'; then
-        echo 'j'
-    elif echo "$1" | grep -Eiq '雪'; then
-        echo 'k'
-    elif echo "$1" | grep -Ei '雷' | grep -Eiq '雨'; then
-        echo 'i'
-    elif echo "$1" | grep -Eiq '雷'; then
-        echo 'f'
-    elif echo "$1" | grep -Eiq '中雨|大雨|暴雨'; then
-        echo 'h'
-    elif echo "$1" | grep -Eiq '雨'; then
-        echo 'g'
-    elif echo "$1" | grep -Eiq '多云转晴|晴转多云'; then
-        echo 'b'
-    elif echo "$1" | grep -Eiq '多云'; then
-        echo 'c'
-    elif echo "$1" | grep -Eiq '晴'; then
-        echo 'a'
-    elif echo "$1" | grep -Eiq '阴'; then
-        echo 'e'
-    else
-        echo 'D'
-    fi
+    case "$1" in
+        *雾*)           echo 'F';;
+        *台风*|*飓风*)   echo 'v';;
+        *龙卷风*)        echo 'w';;
+        *中雪*|*大雪*)   echo 'j';;
+        *雪*)           echo 'k';;
+        *雷*雨*|*雨*雷*) echo 'i';;
+        *雷*)           echo 'f';;
+        *中雨*|*大雨*|*暴雨*) echo 'h';;
+        *雨*)           echo 'g';;
+        *多云转晴*|*晴转多云*) echo 'b';;
+        *多云*)         echo 'c';;
+        *晴*)           echo 'a';;
+        *阴*)           echo 'e';;
+        *) echo 'D';;
+    esac
 }
 
 #
