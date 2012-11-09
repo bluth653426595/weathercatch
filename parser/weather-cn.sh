@@ -92,6 +92,10 @@ enable_print{print}
         WTD=`echo "$dayinfo" | awk '{if ($(10))print $4$9; else print $4}'`
         set_data_type "WTD" $WTD
 
+        # weather font on day
+        WFD=`general_weather_text2font_cn "$WTD"`
+        set_data_type "WFD" $WFD
+
         # high temperature
         HT=`echo "$dayinfo" | awk '{print $6}' | sed 's/^\(-\?[0-9]\+\).*$/\1/'`
         set_data_type "HT" $HT
@@ -113,6 +117,10 @@ enable_print{print}
         # second line, and after parsing, it will appear as $8
         WTN=`echo "$nightinfo" | awk '{if ($8) print $2$7; else print $2}'`
         set_data_type "WTN" $WTN
+
+        # weather font on night
+        WFN=`general_weather_text2font_cn "$WTN"`
+        set_data_type "WFN" $WFN
 
         # low temperature
         LT=`echo "$nightinfo" | awk '{print $4}' | sed 's/^\(-\?[0-9]\+\).*$/\1/'`
