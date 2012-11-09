@@ -206,10 +206,10 @@ done
 parser_script=
 if [ -z "$parser" ]; then
     parser_script="./parser/baidu.sh"
-elif [ "$parser" = "baidu" ]; then
-    parser_script="./parser/baidu.sh"
-else
+elif [[ -f "$parser" && -s "$parser" ]]; then
     parser_script="$parser"
+else
+    parser_script="./parser/$parser.sh"
 fi
 
 # show help message
