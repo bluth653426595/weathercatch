@@ -65,12 +65,12 @@ wf_automode () {
 
 # weather font, use day mode
 wf_daymode () {
-    echo $1 | tr "Olmnopqrstu" "abcdefghijk"
+    echo $1 | tr "Olmnopqrstu" "Dbcdefghijk"
 }
 
 # weather font, use night mode
 wf_nightmode () {
-    echo $1 | tr "abcdefghijk" "Olmnopqrstu"
+    echo $1 | tr "Dbcdefghijk" "Olmnopqrstu"
 }
 
 set_data_type () {
@@ -173,17 +173,17 @@ general_weather_text2font_cn () {
         *雾*)           echo 'F';;
         *台风*|*飓风*)   echo 'v';;
         *龙卷风*)        echo 'w';;
-        *中雪*|*大雪*)   echo 'j';;
-        *雪*)           echo 'k';;
+        *中雪*|*大雪*)   echo 'k';;
+        *雪*)           echo 'j';;
         *雷*雨*|*雨*雷*) echo 'i';;
         *雷*)           echo 'f';;
         *中雨*|*大雨*|*暴雨*) echo 'h';;
         *雨*)           echo 'g';;
         *多云转晴*|*晴转多云*) echo 'b';;
         *多云*)         echo 'c';;
-        *晴*)           echo 'a';;
+        *晴*)           echo 'D';;
         *阴*)           echo 'e';;
-        *) echo 'D';;
+        *) echo 'A';;
     esac
 }
 
