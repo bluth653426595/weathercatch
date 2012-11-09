@@ -45,8 +45,6 @@ debug "parser_name: $parser_name"
 
 update_weather_data () {
     if [ ! $arg ]; then arg=weather; fi
-    # TODO
-    # URL="http://www.baidu.com/s?wd=$arg"
     URL="www.baidu.com/s?wd=$arg"
 
     # dump web page
