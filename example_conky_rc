@@ -1,0 +1,63 @@
+#* general
+double_buffer yes
+update_interval 5
+total_run_times 0
+
+alignment middle_right
+minimum_size 280 5
+maximum_width 180
+gap_x 40
+gap_y 30
+
+background no
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+stippled_borders 8
+border_width 4
+default_color darkgrey
+default_shade_color black
+default_outline_color black
+
+use_xft yes
+xftfont Bitstream Vera Sans Mono:size=8
+xftalpha 0.8
+use_spacer none
+override_utf8_locale yes
+format_human_readable
+
+own_window yes
+own_window_hints undecorated,below,skip_taskbar,sticky,skip_pager
+#own_window_argb_visual yes
+own_window_transparent yes
+
+no_buffers yes
+text_buffer_size 1024
+uppercase no
+cpu_avg_samples 2
+net_avg_samples 2
+color0 5b6dad
+color1 ddaa00
+template0 WenQuanYi Zen Hei Mono
+
+#** weather template
+template1 cd ~/workspace/weather_catcher/; sh weather_catcher.sh
+
+#* text
+TEXT
+#** basic
+${font}${voffset 5}${color0}${alignc}${nodename} -- ${uptime_short}
+
+#** weather_catcher, baidu parser
+${color0}parser baidu:
+
+${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template1 -d WF}${font}
+${color}${voffset -72}${offset 85}${font $template0:size=9}${execi 3600 $template1 -d LN -l}
+${offset 85}${execi 3600 $template1 -d WT -l}${font}
+${color1}${voffset 3}${offset 85}${font size=12}${execi 3600 $template1 -d LT -l}~${execi 3600 $template1 -d HT -l} C${color}
+${color}${voffset -1}${offset 85}${font $template0:size=9}${execi 3600 $template1 -d WST -l}${font}
+${color0}${voffset 5}${font $template0:size=9}  明日: ${execi 3600 $template1 -d WT -l -f 1}  ${font}${execi 3600 $template1 -d LT -l -f 1}~${execi 3600 $template1 -d HT -l -f 1} C
+
+#** fix height by offset
+${voffset -100}
