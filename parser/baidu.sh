@@ -80,8 +80,8 @@ enable_print{print}
 
         # temperature
         temp_data=`echo $line | awk '{print $2}'`
-        temp_left=`echo $temp_data | awk -F～ '{print $1}' | sed 's/\([0-9]\+\).*/\1/'`
-        temp_right=`echo $temp_data | awk -F～ '{print $2}' | sed 's/\([0-9]\+\).*/\1/'`
+        temp_left=`echo $temp_data | awk -F～ '{print $1}' | sed 's/\(-\?[0-9]\+\).*/\1/'`
+        temp_right=`echo $temp_data | awk -F～ '{print $2}' | sed 's/\(-\?[0-9]\+\).*/\1/'`
         if [ -z $temp_right ]; then temp_right=$temp_left; fi
         if [ $temp_left -ge $temp_right ]; then
             HT=$temp_left
