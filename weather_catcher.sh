@@ -52,7 +52,6 @@ Options:
         The built-in parser could be:
           baidu
           weather-cn
-          yahoo-weather
         And you could use a custom parser, just transmit the
         script file path here.
         [default: baidu]
@@ -64,8 +63,6 @@ Options:
                          own weather info you expect, in fact, it
                          just could be a city name
           weather-cn:    the complete url which page owns weather
-                         info you expect
-          yahoo-weather: the complete url which page owns weather
                          info you expect
         [default: different for each parser]
     -d, --data-type=[DATATYPE]

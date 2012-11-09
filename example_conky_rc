@@ -42,7 +42,7 @@ color1 ddaa00
 template0 WenQuanYi Zen Hei Mono
 
 #** weather template
-template1 cd ~/workspace/weather_catcher/; sh weather_catcher.sh
+template1 cd .; sh weather_catcher.sh
 
 #* text
 TEXT
