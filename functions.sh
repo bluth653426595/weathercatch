@@ -183,6 +183,7 @@ general_weather_text2font_cn () {
         *多云*)         echo 'c';;
         *晴*)           echo 'D';;
         *阴*)           echo 'e';;
+        '')echo '';;
         *) echo 'A';;
     esac
 }
