@@ -143,7 +143,7 @@ debug () {
 debug_lines () {
     IFS=''
     while read line; do
-        debug " " $line
+        debug " " "$line"
     done <<< "$1"
 }
 
