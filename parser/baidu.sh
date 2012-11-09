@@ -112,6 +112,10 @@ enable_print{print}
 
 parser_help () {
     cat <<EOF
+Argument meaning:
+    The keyword to search which results will own weather info you
+    expect, in fact, it just could be a city name.
+    [default: weather]
 Support data types:
     WF:  weather font output
     WT:  weather text
