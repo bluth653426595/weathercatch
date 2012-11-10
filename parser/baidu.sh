@@ -118,9 +118,14 @@ Argument meaning:
     [default: weather]
 Support data types:
     WF:  weather font output
+         [effect by --night-mode]
     WT:  weather text
     LT:  low temperature
+         [default unit: celsius]
+         [effect by --temp-unit]
     HT:  high temperature
+         [default unit: celsius]
+         [effect by --temp-unit]
     WST: wind speed text
     LN:  location name
 Support max future days: 2

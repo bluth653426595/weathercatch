@@ -68,15 +68,24 @@ Options:
     -d, --data-type=[DATATYPE]
         The built-in data type could be:
           WF:  weather font output
+               [effect by --night-mode]
           WT:  weather text
           LT:  low temperature
+               [default unit: celsius]
+               [effect by --temp-unit]
           HT:  high temperature
+               [default unit: celsius]
+               [effect by --temp-unit]
           CT:  current temperature
+               [default unit: celsius]
+               [effect by --temp-unit]
           WD:  wind direction
           WDT: wind direction text
           WS:  wind speed
+               [default unit: kmh]
           WST: wind speed text
           HM:  humidity
+               [default unit: percent]
           LN:  location name
           ALL: all support data types
         Note: the supported data types is different for each parser,
