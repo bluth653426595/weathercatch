@@ -5,7 +5,7 @@ total_run_times 0
 
 alignment middle_right
 minimum_size 280 5
-maximum_width 180
+maximum_width 240
 gap_x 40
 gap_y 30
 
@@ -42,7 +42,8 @@ color1 ddaa00
 template0 WenQuanYi Zen Hei Mono
 
 #** weather template
-template1 cd .; sh weather_catcher.sh
+template1 cd .; sh weather_catcher.sh -p baidu -a tianqi
+template2 cd .; sh weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml
 
 #* text
 TEXT
@@ -59,5 +60,18 @@ ${color1}${voffset 3}${offset 85}${font size=12}${execi 3600 $template1 -d LT -l
 ${color}${voffset -1}${offset 85}${font $template0:size=9}${execi 3600 $template1 -d WST -l}${font}
 ${color0}${voffset 5}${font $template0:size=9}  明日: ${execi 3600 $template1 -d WT -l -f 1}  ${font}${execi 3600 $template1 -d LT -l -f 1}~${execi 3600 $template1 -d HT -l -f 1} C
 
+#** weather_catcher, weather-cn parser
+${color0}parser weather-cn:
+
+${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template2 -d WF}${font}
+${color}${voffset -72}${offset 85}${font $template0:size=9}${execi 3600 $template2 -d LN -l}
+${offset 85}${execi 3600 $template2 -d WT -l}${font}
+${color1}${voffset 3}${offset 85}${font size=12}${execi 3600 $template2 -d LT -l}~${execi 3600 $template2 -d HT -l} C${color}
+${color}${voffset -1}${offset 85}${font $template0:size=9}${execi 3600
+$template2 -d WDT -l}  ${execi 3600 $template2 -d WST -l}${font}
+${color0}${voffset 5}${font $template0:size=9}  白天: ${execi 3600 $template2 -d WTD -l} 高温${font}${execi 3600 $template2 -d HT -l}C ${font $template0:size=9}${execi 3600 $template2 -d WDTD -l} ${execi 3600 $template2 -d WSTD -l}${font}
+${color0}${voffset 5}${font $template0:size=9}  夜晚: ${execi 3600 $template2 -d WTN -l} 低温${font}${execi 3600 $template2 -d LT -l}C ${font $template0:size=9}${execi 3600 $template2 -d WDTN -l} ${execi 3600 $template2 -d WSTN -l}${font}
+${color0}${voffset 5}${font $template0:size=9}  明日: ${execi 3600 $template2 -d WT -l -f 1}  ${font}${execi 3600 $template2 -d LT -l -f 1}~${execi 3600 $template2 -d HT -l -f 1} C
+
 #** fix height by offset
-${voffset -100}
+${voffset -180}
