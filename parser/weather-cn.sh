@@ -100,9 +100,9 @@ enable_print{print}
         HT=`echo "$dayinfo" | awk '{print $6}' | sed 's/^\(-\?[0-9]\+\).*$/\1/'`
         set_data_type "HT" $HT
 
-        # wind direction on day
-        WDD=`echo "$dayinfo" | awk '{print $7}'`
-        set_data_type "WDD" $WDD
+        # wind direction text on day
+        WDTD=`echo "$dayinfo" | awk '{print $7}'`
+        set_data_type "WDTD" $WDTD
 
         # wind speed text on day
         WSTD=`echo "$dayinfo" | awk '{print $8}'`
@@ -126,9 +126,9 @@ enable_print{print}
         LT=`echo "$nightinfo" | awk '{print $4}' | sed 's/^\(-\?[0-9]\+\).*$/\1/'`
         set_data_type "LT" $LT
 
-        # wind direction on night
-        WDN=`echo "$nightinfo" | awk '{print $5}'`
-        set_data_type "WDN" $WDN
+        # wind direction text on night
+        WDTN=`echo "$nightinfo" | awk '{print $5}'`
+        set_data_type "WDTN" $WDTN
 
         # wind speed text on night
         WSTN=`echo "$nightinfo" | awk '{print $6}'`
@@ -140,18 +140,34 @@ enable_print{print}
 
 parser_help () {
     cat <<EOF
-TODO
 Argument meaning:
     The complete url which page owns weather info you expect.
-    [default: http://www.weather.com.cn/weather/101010100.shtml]
+    [default: www.weather.com.cn/weather/101010100.shtml]
 Support data types:
-    WF:  weather font output
-    WT:  weather text
-    LT:  low temperature
-    HT:  high temperature
-    WST: wind speed text
-    LN:  location name
-Support max future days: 2
+    WF:   weather font output, will link to WFD or WFN
+          [effect by --night-mode]
+    WFD:  weather font on day
+    WFN:  weather font on night
+    WT:   weather text, will link to WTD or WTN
+          [effect by --night-mode]
+    WTD:  weather text on day
+    WTN:  weather text on night
+    LT:   low temperature
+          [default unit: celsius]
+          [effect by --temp-unit]
+    HT:   high temperature
+          [default unit: celsius]
+          [effect by --temp-unit]
+    WDT:  wind direction text, will link to WDTD or WDTN
+          [effect by --night-mode]
+    WDTD: wind direction text on day
+    WDTN: wind direction text on night
+    WST:  wind speed text, will link to WSTD or WSTN
+          [effect by --night-mode]
+    WSTD: wind speed text on day
+    WSTN: wind speed text on night
+    LN:   location name
+Support max future days: 6
 Limits:
     Should only work for Chinese friends.
 EOF
