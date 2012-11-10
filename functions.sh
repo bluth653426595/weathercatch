@@ -54,9 +54,16 @@ temp_f2c () {
     float_round_off `awk "BEGIN {print ($1-32)*5/9}"`
 }
 
+is_night_now () {
+    hour=`date +%H`
+    if [[ $hour -ge 18 || `date +%H` -le 6 ]]; then
+        echo "t"
+    fi
+}
+
 # weather font, auto mode
 wf_automode () {
-    if [ `date +%H` -ge 18 ]; then
+    if [ `is_night_now` ]; then
         wf_nightmode $1
     else
         wf_daymode $1
