@@ -156,6 +156,20 @@ debug_lines () {
     done <<< "$1"
 }
 
+get_parser_script () {
+    builtin_parser="./parser/$1.sh"
+    if [ -z "$1" ]; then
+        # default parser
+        echo "./parser/baidu.sh"
+    elif [[ -f "$builtin_parser" && -s "$builtin_parser" ]]; then
+        # built-in parser
+        echo "$builtin_parser"
+    else
+        # custom parser
+        echo "$1"
+    fi
+}
+
 ## global variables
 weather_data_file="/tmp/weather_catcher.txt"
 weather_tmp_file="/tmp/weather_catcher.tmp"
@@ -198,28 +212,8 @@ do
     shift
 done
 
-# test TODO
-# echo $options
-# echo $parser
-# echo $arg
-# echo $data_type
-# echo $night_mode
-# echo $future_day
-# echo $temp_unit
-# echo $use_last_data
-# echo $debug
-# echo $help
-# echo $version
-
 # select parser
-parser_script=
-if [ -z "$parser" ]; then
-    parser_script="./parser/baidu.sh"
-elif [[ -f "$parser" && -s "$parser" ]]; then
-    parser_script="$parser"
-else
-    parser_script="./parser/$parser.sh"
-fi
+parser_script=`get_parser_script "$parser"`
 
 # show help message
 if [ "$help" ]; then
