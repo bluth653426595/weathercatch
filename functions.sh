@@ -64,26 +64,26 @@ is_night_now () {
 # weather font, auto mode
 wf_automode () {
     if [ `is_night_now` ]; then
-        wf_nightmode $1
+        wf_nightmode "$1"
     else
-        wf_daymode $1
+        wf_daymode "$1"
     fi
 }
 
 # weather font, use day mode
 wf_daymode () {
-    echo $1 | tr "Olmnopqrstu" "Dbcdefghijk"
+    echo "$1" | tr "Olmnopqrstu" "Dbcdefghijk"
 }
 
 # weather font, use night mode
 wf_nightmode () {
-    echo $1 | tr "Dbcdefghijk" "Olmnopqrstu"
+    echo "$1" | tr "Dbcdefghijk" "Olmnopqrstu"
 }
 
 set_data_type () {
-    name=$1
-    value=$2
-    if [ -z $data_types_to_write ]; then
+    name="$1"
+    value="$2"
+    if [ -z "$data_types_to_write" ]; then
         data_types_to_write="$name=$value"
     else
         data_types_to_write="$data_types_to_write"$'\n'"$name=$value"
@@ -105,23 +105,37 @@ write_data_types () {
     data_types_to_write=
 }
 
-get_weather_data () {
-    # operate hook first
-    hook_result=`get_weather_data_hook`
-    if [ -n "$hook_result" ]; then
-        echo "$hook_result"
-        return
-    fi
-
+do_get_weather_data () {
+    # debug "do_get_weather_data: $data_type" ;;TODO
     all_data=`awk "/future_day_$future_day/,/}/" $weather_data_file \
         | sed -e '1d' -e '$d' -e 's/^\s\+//'`
     if [ "$data_type" = "ALL" ]; then
         echo "$all_data"
         return
     fi
-    value=`echo "$all_data" | grep $data_type | awk -F= '{print $2}'`
+    echo "$all_data" | grep -e "^$data_type=" | awk -F= '{print $2}'
+}
+
+get_weather_data () {
+    # operate hook first
+    # don't use "$()" when run get_weather_data_hook() to enable it
+    # modify global variables TODO
+    debug "data type[before hook]: $data_type"
+    get_weather_data_hook
+    debug "data type[after hook]: $data_type"
+    if [ -n "$hook_result" ]; then
+        echo "$hook_result"
+        return
+    fi
+
+    # get value in data file
+    value=`do_get_weather_data`
+    debug "value(s):"
+    debug_lines "$value"
+
+    # result effect
     case "$data_type" in
-        WF)                     # weather font, check day or night mode
+        WF)                    # weather font, check day or night mode
             if [ "$night_mode" = "day" ]; then
                 value=`wf_daymode "$value"`
             elif [ "$night_mode" = "night" ]; then

@@ -136,7 +136,8 @@ EOF
 version () {
     echo "version 0.1"
     echo "built-in parsers:"
-    for p in "./parser/*.sh"; do
+    for p in ./parser/*.sh; do
+        debug $p
         source $p
         printf "  %s: %s\n" "$parser_name" "`parser_version`"
     done
@@ -256,10 +257,11 @@ update_weather_data () {
 }
 get_weather_data_hook () {
     # if the parser want to operate some special data type, could
-    # redefine this function, and output something, then function
-    # 'get_weather_data' will use the output content instead its,
-    # and maybe will use the global variable $data_type here.
-    echo ""
+    # redefine this function, and change the variable $hook_result,
+    # then function 'get_weather_data' will use the output content
+    # instead its, and maybe will use the global variable $data_type
+    # here.
+    hook_result=
 }
 parser_help () {
     echo "warnning, function need to be redefined"

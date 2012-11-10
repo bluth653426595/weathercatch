@@ -60,7 +60,7 @@ parse_data () {
     # get valid weather info section in the page
     weather_block=`awk '
 /天气图例/{enable_print=1}
-/周边地区明日天气/{if (enable_print) exit}
+/周边地区[今明]日天气/{if (enable_print) exit}
 enable_print{print}
 ' $weather_tmp_file`
     debug "weather block:"
@@ -136,6 +136,60 @@ enable_print{print}
 
         write_data_types $daynum
     done
+}
+
+select_data_type_day_or_night ()  {
+    # first, check the option "--night-mode"
+    if [ "$night_mode" = "day" ]; then
+        data_type=${data_type}D
+    elif [ "$night_mode" = "night" ]; then
+        data_type=${data_type}N
+    elif [ "$night_mode" = "auto" ]; then
+        if [ `is_night_now` ]; then
+            data_type=${data_type}N
+        else
+            data_type=${data_type}D
+        fi
+    fi
+
+    # second, ensure the selected data type existed, or toggle it
+    value=`do_get_weather_data`
+    if [ -z "$value" ]; then
+        toggle_data_type_day_or_night
+    fi
+}
+
+toggle_data_type_day_or_night () {
+    debug "data_type[before toggle]: $data_type"
+    case "$data_type" in
+        *D) data_type=`echo "$data_type" | sed 's/D$/N/'`;;
+        *N) data_type=`echo "$data_type" | sed 's/N$/D/'`;;
+    esac
+    debug "data_type[after toggle]: $data_type"
+}
+
+get_weather_data_hook () {
+    hook_result=
+
+    # relink data_type
+    case "$data_type" in
+        WF|WT|WDT|WST)
+            select_data_type_day_or_night;;
+    esac
+
+    # result effect for special data types
+    value=`do_get_weather_data`
+    case "$data_type" in
+        WFD|WFN)
+            if [ "$night_mode" = "day" ]; then
+                value=`wf_daymode "$value"`
+            elif [ "$night_mode" = "night" ]; then
+                value=`wf_nightmode "$value"`
+            elif [ "$night_mode" = "auto" ]; then
+                value=`wf_automode "$value"`
+            fi
+            hook_result="$value";;
+    esac
 }
 
 parser_help () {
