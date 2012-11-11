@@ -5,10 +5,6 @@
 # Author: Xu FaSheng
 # Created: 2012.11.06
 # Keywords: weather_catcher parser
-# Compatibility: weather_catcher_v0.1
-#   depends on w3m v0.5.3
-#   May work on older versions but this is not guaranteed.
-#
 
 # This file is a part of weather_catcher
 
@@ -121,6 +117,10 @@ Support data types:
     WST: wind speed text
     LN:  location name
 Support max future days: 2
+Compatibility:
+    works well on weather_catcher_v0.1
+    depends on w3m v0.5.3
+    May work on older versions but this is not guaranteed.
 Limits:
     Should only work for Chinese friends.
 EOF

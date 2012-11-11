@@ -214,6 +214,10 @@ Support data types:
     WSTN: wind speed text on night
     LN:   location name
 Support max future days: 6
+Compatibility:
+    works well on weather_catcher_v0.1
+    depends on w3m v0.5.3
+    May work on older versions but this is not guaranteed.
 Limits:
     Should only work for Chinese friends.
 EOF
