@@ -25,7 +25,7 @@ appname=weather_catcher
 appdir=$(prefix)/$(appname)
 mainfiles=weather_catcher.sh functions.sh \
           Makefile README COPYING example_conky_rc
-parserfiles=parser/baidu.sh parser/weather-cn.sh
+parserfolder=parser
 
 .PHONY : help test test-conky install uninstall
 
@@ -43,13 +43,10 @@ install :
 	@echo "==> install..."
 	@echo "==> copy files"
 	-mkdir $(appdir)
-	-@for f in $(mainfiles); do \
+	@for f in $(mainfiles); do \
 	  cp -vf $${f} $(appdir); \
 	done
-	-mkdir $(appdir)/parser
-	-@for f in $(parserfiles); do \
-	  cp -vf $${f} $(appdir)/parser; \
-	done
+	@cp -rvf $(parserfolder) $(appdir)
 	@echo "==> create runner"
 	@echo '#!/bin/sh' > $(bindir)/weather_catcher
 	@echo 'cd $(appdir);sh ./weather_catcher.sh "$$@"' >> $(bindir)/weather_catcher
@@ -62,17 +59,10 @@ install :
 uninstall :
 	@echo "==> uninstall..."
 	@echo "==> delete data files"
-	-@for f in $(parserfiles); do \
-	  rm -vf $(appdir)/$${f}; \
-	done
-	-rmdir $(appdir)/parser
-	-@for f in $(mainfiles); do \
-	  rm -vf $(appdir)/$${f}; \
-	done
-	-rmdir $(appdir)
+	@rm -rvf $(appdir)
 	@echo "==> delete runner"
-	rm -f $(bindir)/weather_catcher
-	rm -f $(bindir)/weather_catcher_conky_example
+	@rm -vf $(bindir)/weather_catcher
+	@rm -vf $(bindir)/weather_catcher_conky_example
 	@echo done.
 
 ######################################################################
