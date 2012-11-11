@@ -53,11 +53,7 @@ update_weather_data () {
 
 parse_data () {
     # get valid weather info section in the page
-    weather_block=`awk '
-/天气图例/{enable_print=1}
-/周边地区[今明]日天气/{if (enable_print) exit}
-enable_print{print}
-' $weather_tmp_file`
+    weather_block=`get_section_file $weather_tmp_file "天气图例" "周边地区[今明]日天气"`
     debug "weather block:"
     debug_lines "$weather_block"
 

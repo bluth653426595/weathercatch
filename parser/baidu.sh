@@ -48,11 +48,7 @@ update_weather_data () {
 
 parse_data () {
     # get valid weather info section in the page
-    weather_block=`awk '
-/一周天气预报/{enable_print=1}
-/中国气象局/{if (enable_print) exit}
-enable_print{print}
-' $weather_tmp_file`
+    weather_block=`get_section_file $weather_tmp_file "一周天气预报" "中国气象局"`
     debug "weather block:"
     debug_lines "$weather_block"
 
@@ -60,7 +56,7 @@ enable_print{print}
     LN=`echo "$weather_block" | head -1 | sed 's/天气预报.*$//'`
 
     # get other weather data
-    weather_block=`echo "$weather_block" | sed -e '1d' | awk 'NF>1'`
+    weather_block=`echo "$weather_block" | sed -e '1d' -e '$d' | awk 'NF>1'`
     weather_block=`clear_w3m_target_block "$weather_block" "[neverfill]"`
     debug "weather block[fixed]"
     debug_lines "$weather_block"

@@ -176,7 +176,7 @@ END {
 # 1    [target]    c         ->  1  2  3
 #      2           3
 clear_w3m_target_block () {
-    fixed_table=`echo "$1" | sed 's/^  /$2/'`
+    fixed_table=`echo "$1" | sed "s/^  /$2/"`
     reversed_table=`reverse_table "$fixed_table"`
     cleared_table=`echo "$reversed_table" | awk -v tb=$2 '
 {
@@ -200,6 +200,19 @@ timeout_cmd () {
     else
         $@
     fi
+}
+
+# output a matched section in a file, support regexp for the start and
+# end match word, and include start and end line in output
+get_section_file () {
+    file="$1"
+    start="$2"
+    end="$3"
+    awk "
+/$start/{enable_print=1}
+enable_print{print}
+/$end/{if (enable_print) exit}
+" $file
 }
 
 general_weather_text2font_cn () {
