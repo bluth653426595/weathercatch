@@ -34,19 +34,11 @@ debug "parser_name: $parser_name"
 update_weather_data () {
     if [ ! "$arg" ]; then arg="weather"; fi
     URL="www.baidu.com/s?wd=$arg"
-
-    # filter space in url
-    URL=`echo "$URL" | sed 's/ /%20/g'`
+    URL=`convert_url_space "$URL"`
 
     # dump web page
     debug "dumping url: $URL"
-    web_content=
-    # if exist 'timeout' command, use it
-    if command -v timeout >/dev/null 2>&1; then
-        web_content=`timeout 15s w3m -dump -no-cookie "$URL"`
-    else
-        web_content=`w3m -dump -no-cookie "$URL"`
-    fi
+    web_content=`timeout_cmd w3m -dump -no-cookie "$URL"`
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
     fi
@@ -131,19 +123,16 @@ Support data types:
 Support max future days: 2
 Depends:
     w3m v0.5.3+
-    coretuils v7.0+, for the 'timeout' command, not necessary
 Compatibility:
-    works well on weather_catcher_v0.1
+    works well on weather_catcher_v0.2
     May work on older versions but this is not guaranteed.
 Limits:
     Should only work for Chinese friends.
-Special tips: TODO
-    If
 EOF
 }
 
 parser_version () {
-    echo "build 20121111"
+    echo "build 20121112"
 }
 
 debug "parser load success"

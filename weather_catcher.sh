@@ -107,6 +107,9 @@ Options:
     -v, --version
         Prints main or parser's version information and exits.
 
+Depends:
+    coretuils v7.0+, for the 'timeout' command, not necessary
+
 Examples:
     - print all weather info today
       weather_catcher.sh

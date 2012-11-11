@@ -189,6 +189,19 @@ clear_w3m_target_block () {
     reverse_table "$cleared_table"
 }
 
+convert_url_space () {
+    echo "$1" | sed 's/ /%20/g'
+}
+
+timeout_cmd () {
+    # if exist 'timeout' command, use it
+    if command -v timeout >/dev/null 2>&1; then
+        timeout 15s $@
+    else
+        $@
+    fi
+}
+
 general_weather_text2font_cn () {
     case "$1" in
         *雾*)           echo 'F';;
