@@ -6,20 +6,11 @@
 # Description: a simple tool to get weather info in the web page through parsing the content
 # Author: Xu FaSheng
 # Created: 2012.11.05
-# Version: 0.1
-# Last-Updated:
-#           By:
-#     Update #: 0
-# URL:
 # Keywords: weather web parse
 #
 
 # This file is a part of weather_catcher
 
-# Change Log:
-# - 0.1
-#
-#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 3, or

@@ -4,10 +4,6 @@
 # Description: a parser fo weather_catcher
 # Author: Xu FaSheng
 # Created: 2012.11.09
-# Version: 0.1
-# Last-Updated:
-#           By:
-#     Update #: 1
 # Keywords: weather_catcher parser
 # Compatibility: weather_catcher_v0.1
 #   depends on w3m v0.5.3
@@ -16,10 +12,6 @@
 
 # This file is a part of weather_catcher
 
-# Change Log:
-# - 0.1
-#
-#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
 # published by the Free Software Foundation; either version 3, or
@@ -228,7 +220,7 @@ EOF
 }
 
 parser_version () {
-    echo "version 0.1, build_20121109"
+    echo "build 20121109"
 }
 
 debug "parser load success"
