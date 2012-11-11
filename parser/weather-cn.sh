@@ -36,18 +36,21 @@ parser_name="weather-cn"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
-    if [ ! $arg ]; then
+    if [ ! "$arg" ]; then
         arg="www.weather.com.cn/weather/101010100.shtml"
     fi
     URL="$arg"
+
+    # filter space in url
+    URL=`echo "$URL" | sed 's/ /%20/g'`
 
     # dump web page
     web_content=
     # if exist 'timeout' command, use it
     if command -v timeout >/dev/null 2>&1; then
-        web_content=`timeout 15s w3m -dump $URL`
+        web_content=`timeout 15s w3m -dump -no-cookie "$URL"`
     else
-        web_content=`w3m -dump $URL`
+        web_content=`w3m -dump -no-cookie "$URL"`
     fi
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
