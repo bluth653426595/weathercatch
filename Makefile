@@ -27,16 +27,16 @@ mainfiles=weather_catcher.sh functions.sh \
           Makefile README COPYING example_conky_rc
 parserfolder=parser
 
-.PHONY : help test test-conky install uninstall
+.PHONY : help example example-conky install uninstall
 
 help :
-	@echo "make [install|uninstall|test|test-conky|help] [prefix=$(prefix)]"
+	@echo "make [install|uninstall|example|example-conky|help] [prefix=$(prefix)]"
 
-test :
+example :
 	sh ./weather_catcher.sh -p baidu -a weather -d ALL
 	sh ./weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml -d ALL
 
-test-conky :
+example-conky :
 	conky -c example_conky_rc
 
 install :

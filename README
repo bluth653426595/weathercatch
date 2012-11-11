@@ -1,142 +1,30 @@
-* main help message
-Description:
-    weather_catcher is a simple tool to get weather info in the web page through parsing the content.
+* description
+  weather_catcher is a simple tool to get weather info in the web page
+  through parsing the content.
+* install and uninstall
+  make example
+  make example-conky
+  make install
+  make install prefix=/custom/path
+  make uninstall
+* binary
+  /usr/bin/weather_catcher, a wrapper to run the main script weather_catcher.sh
+  /usr/bin/weather_catcher_conky_example, just for showing the conky example
+* usage
+  weather_catcher.sh [-p parser] [-a argument] [-d datatype]
+      [-n nightmode] [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
 
-Usage:
-    weather_catcher.sh [-p parser] [-a argument] [-d datatype] [-n nightmode] [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
-
-Options:
-    -p, --parser=[PARSER]
-        The built-in parser could be:
-          baidu
-          weather-cn
-        And you could use a custom parser, just transmit the
-        script file path here.
-        [default: baidu]
-    -a, --argument=[ARGUMENT]
-        The argument has different meaning for each parser,
-        you should have a look at its help message.
-        And the arguments's meaning for built-in parsers could be:
-          baidu:         the keyword to search which results will
-                         own weather info you expect, in fact, it
-                         just could be a city name
-          weather-cn:    the complete url which page owns weather
-                         info you expect
-        [default: different for each parser]
-    -d, --data-type=[DATATYPE]
-        The built-in data type could be:
-          WF:  weather font output
-               [effect by --night-mode]
-          WT:  weather text
-          LT:  low temperature
-               [default unit: celsius]
-               [effect by --temp-unit]
-          HT:  high temperature
-               [default unit: celsius]
-               [effect by --temp-unit]
-          CT:  current temperature
-               [default unit: celsius]
-               [effect by --temp-unit]
-          WD:  wind direction
-          WDT: wind direction text
-          WS:  wind speed
-               [default unit: kmh]
-          WST: wind speed text
-          HM:  humidity
-               [default unit: percent]
-          LN:  location name
-          ALL: all support data types
-        Note: the supported data types is different for each parser,
-              you'd better have a look at the parser's help message.
-        [default: ALL]
-    -n, --night-mode=[NIGHTMODE]
-        Will effect some data type's value, such as WF.
-        The night mode could be:
-          day, night, auto
-        [default: auto]
-    -f, --future-day=[NUM]
-        Get weather info in the future NUM day,
-        for example, 0 means today, 1 means tomorrow.
-        Note: not all the parser support this options.
-        [default: 0]
-    -t, --temp-unit=[TEMPUNIT]
-        Set the temperature unit, effect for data type HT, LT and CT,
-        The temperature unit could be:
-          c, celsius
-          f, fahrenheit
-        [default: c]
-    -l, --use-last-data
-        Use last weather data if possible.
-    -D, --debug
-        Use debug mode, for testing.
-    -h, --help
-        Prints main or parser's help message and exits.
-    -v, --version
-        Prints main or parser's version information and exits.
-
-Examples:
-    - print all weather info today
-      weather_catcher.sh
-      weather_catcher.sh -p baidu -a tianqi -d ALL
-    - print tomorrow's weather text
-      weather_catcher.sh -d WT -f 1
-    - print weather font, use night mode
-      weather_catcher.sh -d WF -n night
-    - use a custom parser
-      weather_catcher.sh -p your_parser.sh -a argument
-    - print a parser's help message
-      weather_catcher.sh -p baidu -h
-
-* parser help message
-** baidu
-Argument meaning:
-    The keyword to search which results will own weather info you
-    expect, in fact, it just could be a city name.
-    [default: weather]
-Support data types:
-    WF:  weather font output
-         [effect by --night-mode]
-    WT:  weather text
-    LT:  low temperature
-         [default unit: celsius]
-         [effect by --temp-unit]
-    HT:  high temperature
-         [default unit: celsius]
-         [effect by --temp-unit]
-    WST: wind speed text
-    LN:  location name
-Support max future days: 2
-Limits:
-    Should only work for Chinese friends.
-
-** weather-cn
-Argument meaning:
-    The complete url which page owns weather info you expect.
-    [default: www.weather.com.cn/weather/101010100.shtml]
-Support data types:
-    WF:   weather font output, will link to WFD or WFN
-          [effect by --night-mode]
-    WFD:  weather font on day
-    WFN:  weather font on night
-    WT:   weather text, will link to WTD or WTN
-          [effect by --night-mode]
-    WTD:  weather text on day
-    WTN:  weather text on night
-    LT:   low temperature
-          [default unit: celsius]
-          [effect by --temp-unit]
-    HT:   high temperature
-          [default unit: celsius]
-          [effect by --temp-unit]
-    WDT:  wind direction text, will link to WDTD or WDTN
-          [effect by --night-mode]
-    WDTD: wind direction text on day
-    WDTN: wind direction text on night
-    WST:  wind speed text, will link to WSTD or WSTN
-          [effect by --night-mode]
-    WSTD: wind speed text on day
-    WSTN: wind speed text on night
-    LN:   location name
-Support max future days: 6
-Limits:
-    Should only work for Chinese friends.
+  too see complete help message, type "weather_catcher.sh -h"
+  too see parser's help message, type "weather_catcher.sh -p baidu -h"
+* examples
+  - print all weather info today
+    weather_catcher.sh
+    weather_catcher.sh -p baidu -a tianqi -d ALL
+  - print tomorrow's weather text
+    weather_catcher.sh -d WT -f 1
+  - print weather font, use night mode
+    weather_catcher.sh -d WF -n night
+  - use a custom parser
+    weather_catcher.sh -p your_parser.sh -a argument
+  - print a parser's help message
+    weather_catcher.sh -p baidu -h
