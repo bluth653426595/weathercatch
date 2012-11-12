@@ -194,8 +194,8 @@ convert_url_space () {
 }
 
 retry_cmd () {
-    retry_time=$1
-    cmd="${@:2}"
+    local retry_time=$1
+    local cmd="${@:2}"
     for((i=1; i<=$retry_time; i++)); do
         if $cmd; then
             break
@@ -204,8 +204,8 @@ retry_cmd () {
 }
 
 timeout_cmd () {
-    timeout=$1
-    cmd="${@:2}"
+    local timeout=$1
+    local cmd="${@:2}"
     # if exist 'timeout' command, use it
     if command -v timeout >/dev/null 2>&1; then
         timeout $timeout $cmd
