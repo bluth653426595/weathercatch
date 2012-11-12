@@ -253,7 +253,7 @@ general_weather_text2font_cn () {
         *中雨*|*大雨*|*暴雨*) echo 'h';;
         *雨*)           echo 'g';;
         *多云转晴*|*晴转多云*) echo 'b';;
-        *多云*)         echo 'c';;
+        *多云*)         echo 'd';;
         *晴*)           echo 'D';;
         *阴*)           echo 'e';;
         '')echo '';;
