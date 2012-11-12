@@ -15,7 +15,7 @@
     - example_conky_rc
   + [update] parser baidu build 20121112
   + [update] set google as the default parser
-  + [update] some other simple issues
+  + [fix] some other simple issues
 - 0.1 2012.11.08
   + [add] framework
   + [add] parser baidu

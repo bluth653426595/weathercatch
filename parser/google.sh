@@ -33,7 +33,8 @@ default_arg="weather san francisco"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
-    if [ ! "$arg" ]; then arg="$default_arg"; fi
+    if [ -z "$arg" ]; then arg="$default_arg"; fi
+
     # use "74.125.31.103" instead of "www.google.com" to
     # ensure the web page is in english
     URL="http://74.125.31.103/search?q=$arg"
@@ -99,7 +100,7 @@ split_weather_block_vert () {
 
 parse_left_weather_block () {
     # current temperature
-    CT=`echo "$left_weather_block" | sed -n 1p | sed 's/^.*\([0-9]\+\)°C/\1/'`
+    CT=`echo "$left_weather_block" | sed -n 1p | tr -d '°C'`
 
     # current weather text
     CWT=`echo "$left_weather_block" | sed -n 2p | awk '{print substr($0, length($1)+2)}'`
@@ -178,28 +179,35 @@ parser_help () {
     cat <<EOF
 Argument meaning:
     The keyword to search which results will own weather info you
-    expect, in fact, it just could be a city name.
+    expect, in fact, it just could be "weather cityname".
     [default: "$default_arg"]
 Support data types:
     WF:  weather font output
          [effect by --night-mode]
-    WT:  weather text
+    CWF: current weather font output
+         [effect by --night-mode]
+    CWT: current weather text
+    CT:  current temperature
+         [default unit: celsius]
+         [effect by --temp-unit]
     LT:  low temperature
          [default unit: celsius]
          [effect by --temp-unit]
     HT:  high temperature
          [default unit: celsius]
          [effect by --temp-unit]
-    WST: wind speed text
+    WD:  wind direction
+    WS:  wind speed
+         [default unit: kmh]
+    HM:  humidity
+         [default unit: percent]
     LN:  location name
-Support max future days: 2
+Support max future days: 3
 Depends:
     w3m v0.5.3+
 Compatibility:
     works well on weather_catcher_v0.2
     May work on older versions but this is not guaranteed.
-Limits:
-    Should only work for Chinese friends.
 EOF
 }
 

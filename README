@@ -15,11 +15,11 @@
       [-n nightmode] [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
 
   too see complete help message, type "weather_catcher.sh -h"
-  too see parser's help message, type "weather_catcher.sh -p baidu -h"
+  too see parser's help message, type "weather_catcher.sh -p google -h"
 * examples
   - print all weather info today
     weather_catcher.sh
-    weather_catcher.sh -p baidu -a tianqi -d ALL
+    weather_catcher.sh -p google -a "weather new york" -d ALL
   - print tomorrow's weather text
     weather_catcher.sh -d WT -f 1
   - print weather font, use night mode
@@ -27,4 +27,4 @@
   - use a custom parser
     weather_catcher.sh -p your_parser.sh -a argument
   - print a parser's help message
-    weather_catcher.sh -p baidu -h
+    weather_catcher.sh -p google -h

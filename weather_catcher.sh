@@ -41,15 +41,19 @@ Usage:
 Options:
     -p, --parser=[PARSER]
         The built-in parser could be:
+          google
           baidu
           weather-cn
         And you could use a custom parser, just transmit the
         script file path here.
-        [default: baidu]
+        [default: $default_parser]
     -a, --argument=[ARGUMENT]
         The argument has different meaning for each parser,
         you should have a look at its help message.
         And the arguments's meaning for built-in parsers could be:
+          google         the keyword to search which results will own
+                         weather info you expect, in fact, it just
+                         could be "weather cityname".
           baidu:         the keyword to search which results will
                          own weather info you expect, in fact, it
                          just could be a city name
@@ -113,7 +117,7 @@ Depends:
 Examples:
     - print all weather info today
       weather_catcher.sh
-      weather_catcher.sh -p baidu -a tianqi -d ALL
+      weather_catcher.sh -p google -a "weather new york" -d ALL
     - print tomorrow's weather text
       weather_catcher.sh -d WT -f 1
     - print weather font, use night mode
@@ -121,7 +125,7 @@ Examples:
     - use a custom parser
       weather_catcher.sh -p your_parser.sh -a argument
     - print a parser's help message
-      weather_catcher.sh -p baidu -h
+      weather_catcher.sh -p google -h
 
 EOF
     exit 1
@@ -155,7 +159,7 @@ get_parser_script () {
     builtin_parser="./parser/$1.sh"
     if [ -z "$1" ]; then
         # default parser
-        echo "./parser/baidu.sh"
+        echo "./parser/${default_parser}.sh"
     elif [[ -f "$builtin_parser" && -s "$builtin_parser" ]]; then
         # built-in parser
         echo "$builtin_parser"
@@ -168,6 +172,7 @@ get_parser_script () {
 ## global variables
 weather_data_file="/tmp/weather_catcher.txt"
 weather_tmp_file="/tmp/weather_catcher.tmp"
+default_parser="google"
 
 ## dispatch options
 parser=
