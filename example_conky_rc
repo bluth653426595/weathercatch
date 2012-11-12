@@ -44,14 +44,26 @@ template0 WenQuanYi Zen Hei Mono
 #** weather template
 template1 cd .; sh weather_catcher.sh -p baidu -a tianqi
 template2 cd .; sh weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml
+template3 cd .; sh weather_catcher.sh -p google -a "weather new york"
 
 #* text
 TEXT
 #** basic
 ${font}${voffset 5}${color0}${alignc}${nodename} -- ${uptime_short}
 
+#** weather_catcher, google parser
+${color0}${font size=9}parser google:
+
+${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template3 -d CWF}${font}
+${color}${voffset -72}${offset 85}${font}${execi 3600 $template3 -d LN -l}
+${color}${offset 85}${execi 3600 $template3 -d CWT -l}
+${color1}${voffset 3}${offset 85}${font size=12}${execi 3600 $template3 -d CT -l} C${font}
+${color}${offset 85}wind: ${execi 3600 $template3 -d WD -l} at ${execi 3600 $template3 -d WS -l} kmh
+${color0}${voffset 5}  today: ${execi 3600 $template3 -d LT -l}~${execi 3600 $template3 -d HT -l}C  humidity: ${execi 3600 $template3 -d HM -l}%
+${color0}${voffset 5}  tomorrow: ${execi 3600 $template3 -d LT -l -f 1}~${execi 3600 $template3 -d HT -l -f 1} C
+
 #** weather_catcher, baidu parser
-${color0}parser baidu:
+${color0}${font size=9}parser baidu:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template1 -d WF}${font}
 ${color}${voffset -72}${offset 85}${font $template0:size=9}${execi 3600 $template1 -d LN -l}
@@ -61,7 +73,7 @@ ${color}${voffset -1}${offset 85}${font $template0:size=9}${execi 3600 $template
 ${color0}${voffset 5}${font $template0:size=9}  明日: ${execi 3600 $template1 -d WT -l -f 1}  ${font}${execi 3600 $template1 -d LT -l -f 1}~${execi 3600 $template1 -d HT -l -f 1} C
 
 #** weather_catcher, weather-cn parser
-${color0}parser weather-cn:
+${color0}${font size=9}parser weather-cn:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template2 -d WF}${font}
 ${color}${voffset -72}${offset 85}${font $template0:size=9}${execi 3600 $template2 -d LN -l}
