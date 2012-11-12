@@ -217,14 +217,28 @@ timeout_cmd () {
 # output a matched section in a file, support regexp for the start and
 # end match word, and include start and end line in output
 get_section_file () {
-    file="$1"
-    start="$2"
-    end="$3"
+    local file="$1"
+    local start="$2"
+    local end="$3"
     awk "
 /$start/{enable_print=1}
 enable_print{print}
 /$end/{if (enable_print) exit}
 " $file
+}
+
+# output a matched section in a multiline sting, support regexp for
+# the start and end match word, and include start and end line in
+# output
+get_section_string () {
+    local strings="$1"
+    local start="$2"
+    local end="$3"
+    echo "$strings" | awk "
+/$start/{enable_print=1}
+enable_print{print}
+/$end/{if (enable_print) exit}
+"
 }
 
 general_weather_text2font_cn () {
