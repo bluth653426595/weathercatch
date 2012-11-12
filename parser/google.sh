@@ -104,15 +104,18 @@ split_weather_block_vert () {
 }
 
 parse_left_weather_block () {
+    # get weather tag
+    local weather_tag=`echo "$left_weather_block" | sed -n '/\[.*\]/p' | sed 's/\(\[.*\]\).*/\1/'`
+    left_weather_block=`echo "$left_weather_block" | sed 's/\[.*\]//'`
+
+    # current weather font
+    CWF=`google_weather_tag2wf "$weather_tag"`
+
     # current temperature
     CT=`echo "$left_weather_block" | sed -n 1p | tr -d '°C'`
 
     # current weather text
-    CWT=`echo "$left_weather_block" | sed -n 2p | awk '{print substr($0, length($1)+2)}'`
-
-    # current weather font
-    local weather_tag=`echo "$left_weather_block" | sed -n 2p | awk '{print $1}'`
-    CWF=`google_weather_tag2wf "$weather_tag"`
+    CWT=`echo "$left_weather_block" | sed -n 2p | sed -e 's/^\s*//' -e 's/\s*$//'`
 
     # wind direction
     WD=`echo "$left_weather_block" | sed -n 3p | awk '{print $2}'`
