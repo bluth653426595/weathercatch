@@ -33,6 +33,7 @@ help :
 	@echo "make [install|uninstall|example|example-conky|help] [prefix=$(prefix)]"
 
 example :
+	sh ./weather_catcher.sh -p google -a "weather new york" -d ALL
 	sh ./weather_catcher.sh -p baidu -a weather -d ALL
 	sh ./weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml -d ALL
 
