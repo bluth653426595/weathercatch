@@ -38,7 +38,7 @@ update_weather_data () {
 
     # dump web page
     debug "dumping url: $URL"
-    web_content=`timeout_cmd w3m -dump -no-cookie "$URL"`
+    web_content=`retry_cmd 3 timeout_cmd 15s w3m -dump -no-cookie "$URL"`
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
     fi

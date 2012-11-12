@@ -193,12 +193,24 @@ convert_url_space () {
     echo "$1" | sed 's/ /%20/g'
 }
 
+retry_cmd () {
+    retry_time=$1
+    cmd="${@:2}"
+    for((i=1; i<=$retry_time; i++)); do
+        if $cmd; then
+            break
+        fi
+    done
+}
+
 timeout_cmd () {
+    timeout=$1
+    cmd="${@:2}"
     # if exist 'timeout' command, use it
     if command -v timeout >/dev/null 2>&1; then
-        timeout 15s $@
+        timeout $timeout $cmd
     else
-        $@
+        $cmd
     fi
 }
 

@@ -4,6 +4,7 @@
   + [add] parser weather-cn
   + [add] assistant functions
     - convert_url_space()
+    - retry_cmd()
     - timeout_cmd()
     - get_section_file()
   + [add] some other files
