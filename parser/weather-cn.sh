@@ -4,7 +4,7 @@
 # Description: a parser fo weather_catcher
 # Author: Xu FaSheng
 # Created: 2012.11.09
-# Keywords: weather_catcher parser
+# Keywords: weather_catcher parser weather-cn
 # Compatibility: weather_catcher_v0.1
 #   depends on w3m v0.5.3
 #   May work on older versions but this is not guaranteed.

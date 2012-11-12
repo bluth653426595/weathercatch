@@ -4,7 +4,7 @@
 # Description: a parser fo weather_catcher
 # Author: Xu FaSheng
 # Created: 2012.11.06
-# Keywords: weather_catcher parser
+# Keywords: weather_catcher parser baidu
 
 # This file is a part of weather_catcher
 
