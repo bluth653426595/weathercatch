@@ -81,9 +81,11 @@ parse_location () {
 
 simplify_weather_block () {
     weather_block=`get_section_string "$weather_block" "[0-9]+°C" "Humidity:"`
-    weather_block=`echo "$weather_block" | sed -e 's/^ *• News//' -e 's/^ *More//'`
-    # delete unicode characters, "•, 0x200e"
-    weather_block=`echo "$weather_block" | tr -d '•‎'`
+    weather_block=`echo "$weather_block" | sed -e 's/^ *• \?//'`
+    weather_block=`echo "$weather_block" | sed 's/^\(\S\+\s\)\+//'`
+
+    # delete unicode characters, 0x200e
+    weather_block=`echo "$weather_block" | tr -d '‎'`
 
     # delete prefix spaces
     weather_block=`echo "$weather_block" | sed 's/^ \+//'`
