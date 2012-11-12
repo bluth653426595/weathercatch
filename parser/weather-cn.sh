@@ -33,12 +33,11 @@
 
 
 parser_name="weather-cn"
+default_arg="www.weather.com.cn/weather/101010100.shtml"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
-    if [ ! "$arg" ]; then
-        arg="www.weather.com.cn/weather/101010100.shtml"
-    fi
+    if [ ! "$arg" ]; then arg="$default_arg"; fi
     URL="$arg"
     URL=`convert_url_space "$URL"`
 
@@ -187,7 +186,7 @@ parser_help () {
     cat <<EOF
 Argument meaning:
     The complete url which page owns weather info you expect.
-    [default: www.weather.com.cn/weather/101010100.shtml]
+    [default: "$default_arg"]
 Support data types:
     WF:   weather font output, will link to WFD or WFN
           [effect by --night-mode]

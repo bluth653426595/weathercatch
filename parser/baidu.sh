@@ -29,10 +29,11 @@
 
 
 parser_name="baidu"
+default_arg="weather"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
-    if [ ! "$arg" ]; then arg="weather"; fi
+    if [ ! "$arg" ]; then arg="$default_arg"; fi
     URL="www.baidu.com/s?wd=$arg"
     URL=`convert_url_space "$URL"`
 
@@ -103,7 +104,7 @@ parser_help () {
 Argument meaning:
     The keyword to search which results will own weather info you
     expect, in fact, it just could be a city name.
-    [default: weather]
+    [default: "$default_arg"]
 Support data types:
     WF:  weather font output
          [effect by --night-mode]
