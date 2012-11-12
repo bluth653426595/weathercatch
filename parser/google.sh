@@ -85,7 +85,7 @@ simplify_weather_block () {
     weather_block=`echo "$weather_block" | sed 's/^\(\S\+\s\)\+//'`
 
     # delete unicode characters, 0x200e
-    weather_block=`echo "$weather_block" | tr -d '‎'`
+    weather_block=`echo "$weather_block" | sed 's/‎\(.\)/\1/g'`
 
     # delete prefix spaces
     weather_block=`echo "$weather_block" | sed 's/^ \+//'`
@@ -96,7 +96,7 @@ simplify_weather_block () {
 
 split_weather_block_vert () {
     left_weather_block=`echo "$weather_block" | awk -F' {2,}' '{print $1}'`
-    right_weather_block=`echo "$weather_block" | awk -F' {2,}' '{print $2,$3,$4,$5,$6,$7,$8}' | awk 'NF>1'`
+    right_weather_block=`echo "$weather_block" | awk -F' {2,}' '{print substr($0, length($1)+2)}' | awk 'NF>1' | sed 's/^\s*//'`
     debug "left weather block"
     debug_lines "$left_weather_block"
     debug "right weather block"
