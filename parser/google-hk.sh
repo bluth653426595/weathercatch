@@ -47,9 +47,8 @@ update_weather_data () {
     web_content=`retry_cmd 3 timeout_cmd 15s w3m -dump -no-cookie "$URL"`
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
+        parse_data
     fi
-
-    parse_data
 }
 
 parse_location () {
@@ -111,7 +110,8 @@ google_weather_tag2wt () {
         rai|rain) echo '雨';;
         par) echo '多雲時晴';;
         partly_) echo '多雲時陰';;
-        clo|cloudy) echo '多雲';;
+        clo) echo '多雲';;
+        cloudy) echo '陰';;
         sun) echo '晴';;
         lig) echo '有雨/雪';;
         '')echo '';;

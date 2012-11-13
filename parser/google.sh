@@ -45,9 +45,8 @@ update_weather_data () {
     web_content=`retry_cmd 3 timeout_cmd 15s w3m -dump -no-cookie "$URL"`
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
+        parse_data
     fi
-
-    parse_data
 }
 
 parse_data () {
@@ -179,7 +178,8 @@ google_weather_tag2wf () {
         rai|rain) echo 'g';;
         par) echo 'b';;
         partly_) echo 'c';;
-        clo|cloudy) echo 'd';;
+        clo) echo 'd';;
+        cloudy) echo 'e';;
         sun) echo 'D';;
         lig) echo 'e';;
         '')echo '';;
@@ -203,7 +203,8 @@ google_weather_tag2wt () {
         rai|rain) echo 'Rain';;
         par) echo 'Mostly Sunny';;
         partly_) echo 'Partly Cloudy';;
-        clo|cloudy) echo 'Cloudy';;
+        cloudy) echo 'Overcast';;
+        clo) echo 'Cloudy';;
         sun) echo 'Sunny';;
         lig) echo 'Chance of rain/snow';;
         '')echo '';;

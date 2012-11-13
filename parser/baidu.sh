@@ -42,9 +42,8 @@ update_weather_data () {
     web_content=`retry_cmd 3 timeout_cmd 15s w3m -dump -no-cookie "$URL"`
     if [ -n "$web_content" ]; then
         echo "$web_content">$weather_tmp_file
+        parse_data
     fi
-
-    parse_data
 }
 
 parse_data () {
@@ -129,7 +128,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121112"
+    echo "build 20121113"
 }
 
 debug "parser load success"
