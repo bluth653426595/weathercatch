@@ -24,7 +24,7 @@ bindir=/usr/bin
 appname=weather_catcher
 appdir=$(prefix)/$(appname)
 mainfiles=weather_catcher.sh functions.sh \
-          Makefile README COPYING example_conky_rc
+          Makefile README COPYING Changelog example_conky_rc
 parserfolder=parser
 
 .PHONY : help example example-conky install uninstall

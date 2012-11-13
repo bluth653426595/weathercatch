@@ -39,7 +39,7 @@ debug "parser_name: $parser_name"
 update_weather_data () {
     if [ -z "$arg" ]; then arg="$default_arg"; fi
 
-    URL="http://www.google.com.hk/search?q=$arg"
+    URL="https://www.google.com.hk/search?q=$arg"
     URL=`convert_url_space "$URL"`
 
     # dump web page
@@ -95,8 +95,32 @@ parse_left_weather_block () {
     HM=`echo "$left_weather_block" | sed -n '$p' | awk -F'：' '{print $2}' | tr -d '%'`
 }
 
+# convert weather tag in google to weather text
+google_weather_tag2wt () {
+    local tag=`echo "$1" | tr -d '[]'`
+    # TODO complete all rules
+    case "$tag" in
+        fog) echo '有霾';;
+        # typhoon|hurricane) echo '';;
+        # tornado) echo '';;
+        light_s) echo '小雪';;
+        sno|snow) echo '雪';;
+        # thunderstorm) echo '';;
+        # thunder) echo '';;
+        light_r) echo '小雨';;
+        rai|rain) echo '雨';;
+        par) echo '多雲時晴';;
+        partly_) echo '多雲時陰';;
+        clo|cloudy) echo '多雲';;
+        sun) echo '晴';;
+        lig) echo '有雨/雪';;
+        '')echo '';;
+        *) echo '未知';;
+    esac
+}
+
 parser_version () {
-    echo "build 20121112"
+    echo "build 20121113"
 }
 
 debug "parser load success"

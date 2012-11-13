@@ -147,6 +147,10 @@ parse_right_weather_block () {
         WF=`google_weather_tag2wf "$weather_tag"`
         set_data_type "WF" $WF
 
+        # weather text
+        WT=`google_weather_tag2wt "$weather_tag"`
+        set_data_type "WT" $WT
+
         # high temperature
         HT=`echo "$right_weather_block" | sed -n 3p | awk -v i=$(($i*2+1)) '{print $i}' | tr -d °`
         set_data_type "HT" $HT
@@ -167,19 +171,43 @@ google_weather_tag2wf () {
         fog) echo 'F';;
         # typhoon|hurricane) echo 'v';;
         # tornado) echo 'w';;
-        sno) echo 'k';;
         light_s) echo 'j';;
+        sno|snow) echo 'k';;
         # thunderstorm) echo 'i';;
         # thunder) echo 'f';;
         light_r) echo 'h';;
-        rai) echo 'g';;
+        rai|rain) echo 'g';;
         par) echo 'b';;
         partly_) echo 'c';;
-        cloudy) echo 'd';;
+        clo|cloudy) echo 'd';;
         sun) echo 'D';;
         lig) echo 'e';;
         '')echo '';;
         *) echo 'A';;
+    esac
+}
+
+# convert weather tag in google to weather text
+google_weather_tag2wt () {
+    local tag=`echo "$1" | tr -d '[]'`
+    # TODO complete all rules
+    case "$tag" in
+        fog) echo 'Hale';;
+        # typhoon|hurricane) echo '';;
+        # tornado) echo '';;
+        light_s) echo 'Light Snow';;
+        sno|snow) echo 'Snow';;
+        # thunderstorm) echo '';;
+        # thunder) echo '';;
+        light_r) echo 'Light Rain';;
+        rai|rain) echo 'Rain';;
+        par) echo 'Mostly Sunny';;
+        partly_) echo 'Partly Cloudy';;
+        clo|cloudy) echo 'Cloudy';;
+        sun) echo 'Sunny';;
+        lig) echo 'Chance of rain/snow';;
+        '')echo '';;
+        *) echo 'Unknown';;
     esac
 }
 
@@ -192,6 +220,7 @@ Argument meaning:
 Support data types:
     WF:  weather font output
          [effect by --night-mode]
+    WT:  weather text
     CWF: current weather font output
          [effect by --night-mode]
     CWT: current weather text
@@ -220,7 +249,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121112"
+    echo "build 20121113"
 }
 
 debug "parser load success"
