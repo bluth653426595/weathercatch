@@ -70,12 +70,12 @@ parse_data () {
         temp_data=`echo $line | awk '{print $2}'`
         temp_left=`echo $temp_data | awk -F～ '{print $1}' | sed 's/\(-\?[0-9]\+\).*/\1/'`
         temp_right=`echo $temp_data | awk -F～ '{print $2}' | sed 's/\(-\?[0-9]\+\).*/\1/'`
-        if [ -z $temp_right ]; then temp_right=$temp_left; fi
-        if [ $temp_left -ge $temp_right ]; then
+        # there is only low temp in tonight
+        if [ -n $temp_right ]; then
             HT=$temp_left
             LT=$temp_right
         else
-            HT=$temp_right
+            HT=
             LT=$temp_left
         fi
         set_data_type "LT" $LT

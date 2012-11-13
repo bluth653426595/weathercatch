@@ -2,7 +2,7 @@
   weather_catcher is a simple tool to get weather info in the web page
   through parsing the content.
 * install and uninstall
-  make example
+  make example-google-hk
   make example-conky
   make install
   make install prefix=/custom/path
