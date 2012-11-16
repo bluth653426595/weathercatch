@@ -174,8 +174,8 @@ google_weather_tag2wf () {
         sno|snow) echo 'k';;
         # thunderstorm) echo 'i';;
         # thunder) echo 'f';;
-        light_r) echo 'h';;
-        rai|rain) echo 'g';;
+        light_r) echo 'g';;
+        rai|rain) echo 'h';;
         par) echo 'b';;
         partly_) echo 'c';;
         clo) echo 'd';;
