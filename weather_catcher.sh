@@ -112,9 +112,16 @@ Options:
         Prints main or parser's version information and exits.
 
 Depends:
+    w3m, most parsers will use it
     coretuils v7.0+, for the 'timeout' command, not necessary
 
 Examples:
+    - print help message
+      weather_catcher.sh -h
+    - print version and built-in parsers
+      weather_catcher.sh -v
+    - print a parser's help message
+      weather_catcher.sh -p google -h
     - print all weather info today
       weather_catcher.sh
       weather_catcher.sh -p google -a "weather new york" -d ALL
@@ -124,8 +131,6 @@ Examples:
       weather_catcher.sh -d WF -n night
     - use a custom parser
       weather_catcher.sh -p your_parser.sh -a argument
-    - print a parser's help message
-      weather_catcher.sh -p google -h
 
 EOF
     exit 1
