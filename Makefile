@@ -19,18 +19,23 @@
 ##
 ### Code:
 
-prefix=/usr/share
-bindir=/usr/bin
+prefix=/usr
+bindir=$(prefix)/bin
 appname=weather_catcher
-appdir=$(prefix)/$(appname)
+installdir=$(prefix)/share
+appdir=$(installdir)/$(appname)
 mainfiles=weather_catcher.sh functions.sh \
           Makefile README COPYING Changelog example_conky_rc
 parserfolder=parser
 
+# use real_prefix for creating package for some linux distribution, such as AUR(Arch User Repository)
+real_prefix=$(prefix)
+real_appdir=$(real_prefix)/share/$(appname)
+
 .PHONY : help example-conky install uninstall
 
 help :
-	@echo "make [install|uninstall|example|example-conky|help] [prefix=$(prefix)]"
+	@echo "make [install|uninstall|example|example-conky|help] [installdir=$(installdir)]"
 
 example-google :
 	sh ./weather_catcher.sh -p google -a "weather new york" -d ALL
@@ -54,10 +59,10 @@ install :
 	@cp -rvf $(parserfolder) $(appdir)
 	@echo "==> create runner"
 	@echo '#!/bin/sh' > $(bindir)/weather_catcher
-	@echo 'cd $(appdir);sh ./weather_catcher.sh "$$@"' >> $(bindir)/weather_catcher
+	@echo 'cd $(real_appdir);sh ./weather_catcher.sh "$$@"' >> $(bindir)/weather_catcher
 	chmod +x $(bindir)/weather_catcher
 	@echo '#!/bin/sh' > $(bindir)/weather_catcher_conky_example
-	@echo 'cd $(appdir);conky -c ./example_conky_rc' >> $(bindir)/weather_catcher_conky_example
+	@echo 'cd $(real_appdir);conky -c ./example_conky_rc' >> $(bindir)/weather_catcher_conky_example
 	chmod +x $(bindir)/weather_catcher_conky_example
 	@echo "==> done."
 

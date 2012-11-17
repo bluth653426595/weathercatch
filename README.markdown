@@ -56,7 +56,7 @@ inculde google, baidu, etc.
 - **install**
 
         make install
-        make install prefix=/custom/path
+        make install installdir=/custom/path
 
 - **uninstall**
 
