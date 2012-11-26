@@ -172,8 +172,8 @@ google_weather_tag2wf () {
         # tornado) echo 'w';;
         light_s) echo 'j';;
         sno|snow) echo 'k';;
-        # thunderstorm) echo 'i';;
-        # thunder) echo 'f';;
+        tst) echo 'i';;
+        # t*) echo 'f';;
         light_r) echo 'g';;
         rai|rain) echo 'h';;
         par) echo 'b';;
@@ -197,7 +197,7 @@ google_weather_tag2wt () {
         # tornado) echo '';;
         light_s) echo 'Light Snow';;
         sno|snow) echo 'Snow';;
-        # thunderstorm) echo '';;
+        tst) echo 'Thunderstorms';;
         # thunder) echo '';;
         light_r) echo 'Light Rain';;
         rai|rain) echo 'Rain';;

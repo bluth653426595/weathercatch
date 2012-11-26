@@ -104,7 +104,7 @@ google_weather_tag2wt () {
         # tornado) echo '';;
         light_s) echo '小雪';;
         sno|snow) echo '雪';;
-        # thunderstorm) echo '';;
+        tst) echo '雷陣雨';;
         # thunder) echo '';;
         light_r) echo '小雨';;
         rai|rain) echo '雨';;
