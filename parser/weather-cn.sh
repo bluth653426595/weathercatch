@@ -170,13 +170,7 @@ get_weather_data_hook () {
     value=`do_get_weather_data`
     case "$data_type" in
         WFD|WFN)
-            if [ "$night_mode" = "day" ]; then
-                value=`wf_daymode "$value"`
-            elif [ "$night_mode" = "night" ]; then
-                value=`wf_nightmode "$value"`
-            elif [ "$night_mode" = "auto" ]; then
-                value=`wf_automode "$value"`
-            fi
+            value=`general_wf_auto_select_day_or_night "$value"`
             hook_result="$value";;
     esac
 }
@@ -222,7 +216,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121113"
+    echo "build 20121126"
 }
 
 debug "parser load success"

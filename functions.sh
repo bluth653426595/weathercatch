@@ -136,13 +136,7 @@ get_weather_data () {
     # result effect
     case "$data_type" in
         WF)                    # weather font, check day or night mode
-            if [ "$night_mode" = "day" ]; then
-                value=`wf_daymode "$value"`
-            elif [ "$night_mode" = "night" ]; then
-                value=`wf_nightmode "$value"`
-            elif [ "$night_mode" = "auto" ]; then
-                value=`wf_automode "$value"`
-            fi;;
+            value=`general_wf_auto_select_day_or_night "$value"`;;
         LT|HT|CT)               # temperature unit
             # default temp unit in data file should be celsius
             if [ "$temp_unit" = "f" ]; then
@@ -239,6 +233,16 @@ get_section_string () {
 enable_print{print}
 /$end/{if (enable_print) exit}
 "
+}
+
+general_wf_auto_select_day_or_night () {
+    if [ "$night_mode" = "day" ]; then
+        wf_daymode "$1"
+    elif [ "$night_mode" = "night" ]; then
+        wf_nightmode "$1"
+    elif [ "$night_mode" = "auto" ]; then
+        wf_automode "$1"
+    fi
 }
 
 general_weather_text2font_cn () {
