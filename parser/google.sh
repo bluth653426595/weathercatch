@@ -70,8 +70,7 @@ parse_data () {
 get_valid_weather_section () {
     weather_block=`get_section_file $weather_tmp_file " 1\.$" " 2\. "`
     weather_block=`echo "$weather_block" | sed -e '1d' -e '$d'`
-    debug "weather block:"
-    debug_lines "$weather_block"
+    debug_lines "weather block:" "$weather_block"
 }
 
 parse_location () {
@@ -89,17 +88,14 @@ simplify_weather_block () {
     # delete prefix spaces
     weather_block=`echo "$weather_block" | sed 's/^ \+//'`
 
-    debug "weather block[fixed]"
-    debug_lines "$weather_block"
+    debug_lines "weather block[fixed]" "$weather_block"
 }
 
 split_weather_block_vert () {
     left_weather_block=`echo "$weather_block" | awk -F' {2,}' '{print $1}'`
     right_weather_block=`echo "$weather_block" | awk -F' {2,}' '{print substr($0, length($1)+2)}' | awk 'NF>1' | sed 's/^\s*//'`
-    debug "left weather block"
-    debug_lines "$left_weather_block"
-    debug "right weather block"
-    debug_lines "$right_weather_block"
+    debug_lines "left weather block" "$left_weather_block"
+    debug_lines "right weather block" "$right_weather_block"
 }
 
 parse_left_weather_block () {

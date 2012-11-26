@@ -49,8 +49,7 @@ update_weather_data () {
 parse_data () {
     # get valid weather info section in the page
     weather_block=`get_section_file $weather_tmp_file "一周天气预报" "中国气象局"`
-    debug "weather block:"
-    debug_lines "$weather_block"
+    debug_lines "weather block:" "$weather_block"
 
     # get location name
     LN=`echo "$weather_block" | head -1 | sed 's/天气预报.*$//'`
@@ -58,8 +57,7 @@ parse_data () {
     # get other weather data
     weather_block=`echo "$weather_block" | sed -e '1d' -e '$d' | awk 'NF>1'`
     weather_block=`clear_w3m_target_block "$weather_block" "[neverfill]"`
-    debug "weather block[fixed]"
-    debug_lines "$weather_block"
+    debug_lines "weather block[fixed]" "$weather_block"
     weather_block=`reverse_table "$weather_block"`
     i=0
     while read line; do

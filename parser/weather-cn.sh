@@ -52,16 +52,14 @@ update_weather_data () {
 parse_data () {
     # get valid weather info section in the page
     weather_block=`get_section_file $weather_tmp_file "天气图例" "周边地区[今明]日天气"`
-    debug "weather block:"
-    debug_lines "$weather_block"
+    debug_lines "weather block:" "$weather_block"
 
     # get location name
     LN=`echo "$weather_block" | head -1 | sed 's/天气预报.*$//'`
 
     # get other weather data
     weather_block=`echo "$weather_block" | sed -e '1d' -e '$d' -e '/^.\?$/d' -e '/未来4-7天天气预报/d'`
-    debug "weather block[fixed]"
-    debug_lines "$weather_block"
+    debug_lines "weather block[fixed]" "$weather_block"
     days_count=`echo "$weather_block" | awk -v RS='星期' 'END{print NR}'`
     debug "days_count: $days_count"
     for ((i=2; i<=$days_count; i++)); do

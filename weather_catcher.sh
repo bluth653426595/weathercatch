@@ -155,9 +155,10 @@ debug () {
 
 debug_lines () {
     IFS=''
+    debug "$1"
     while read line; do
         debug " " "$line"
-    done <<< "$1"
+    done <<< "$2"
 }
 
 get_parser_script () {

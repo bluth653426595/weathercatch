@@ -130,8 +130,7 @@ get_weather_data () {
 
     # get value in data file
     value=`do_get_weather_data`
-    debug "value(s):"
-    debug_lines "$value"
+    debug_lines "value(s):" "$value"
 
     # result effect
     case "$data_type" in

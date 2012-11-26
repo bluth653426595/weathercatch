@@ -66,8 +66,7 @@ simplify_weather_block () {
     # delete prefix spaces
     weather_block=`echo "$weather_block" | sed 's/^ \+//'`
 
-    debug "weather block[fixed]"
-    debug_lines "$weather_block"
+    debug_lines "weather block[fixed]" "$weather_block"
 }
 
 parse_left_weather_block () {
