@@ -212,6 +212,18 @@ google_weather_tag2wt () {
     esac
 }
 
+get_weather_data_hook () {
+    hook_result=
+
+    # result effect for special data types
+    value=`do_get_weather_data`
+    case "$data_type" in
+        CWF)
+            value=`general_wf_auto_select_day_or_night "$value"`
+            hook_result="$value";;
+    esac
+}
+
 parser_help () {
     cat <<EOF
 Argument meaning:
@@ -250,7 +262,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121113"
+    echo "build 20121126"
 }
 
 debug "parser load success"

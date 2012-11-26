@@ -120,7 +120,7 @@ google_weather_tag2wt () {
 }
 
 parser_version () {
-    echo "build 20121113"
+    echo "build 20121126"
 }
 
 debug "parser load success"
