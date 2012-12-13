@@ -8,11 +8,14 @@
     - timeout_cmd()
     - get_section_file()
   + [add] some other files
-    - README
-    - Makefile
+    - README.markdown
     - Changelog
     - COPYING
     - example_conky_rc
+    - configure
+    - Makefile.in
+	- wrapper.in
+	- wrapper_example_conky.in
   + [update] parser baidu build 20121112
   + [update] set google as the default parser
   + [fix] some other simple issues
