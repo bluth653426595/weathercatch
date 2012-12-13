@@ -1,4 +1,4 @@
-### Makefile ---
+### Makefile.in ---
 ##
 ## This program is free software; you can redistribute it and/or
 ## modify it under the terms of the GNU General Public License as
@@ -19,23 +19,19 @@
 ##
 ### Code:
 
-prefix=/usr
-bindir=$(prefix)/bin
+DESTDIR=
+prefix=@PREFIX@
+exec_prefix=$(prefix)
+bindir=$(exec_prefix)/bin
+datarootdir=$(DESTDIR)$(prefix)/share
+datadir=$(datarootdir)
 appname=weather_catcher
-installdir=$(prefix)/share
-appdir=$(installdir)/$(appname)
-mainfiles=weather_catcher.sh functions.sh \
-          Makefile README COPYING Changelog example_conky_rc
-parserfolder=parser
-
-# use real_prefix for creating package for some linux distribution, such as AUR(Arch User Repository)
-real_prefix=$(prefix)
-real_appdir=$(real_prefix)/share/$(appname)
+pkgdatadir=$(datadir)/$(appname)
 
 .PHONY : help example-conky install uninstall
-
+all : help
 help :
-	@echo "make [install|uninstall|example|example-conky|help] [installdir=$(installdir)]"
+	@echo "make [install|uninstall|example|example-conky|help] [DESTDIR=\"$(DESTDIR)\"] [prefix=\"$(prefix)\"]"
 
 example-google :
 	sh ./weather_catcher.sh -p google -a "weather new york" -d ALL
@@ -51,29 +47,22 @@ example-conky :
 
 install :
 	@echo "==> install..."
-	@echo "==> copy files"
-	-mkdir $(appdir)
-	@for f in $(mainfiles); do \
-	  cp -vf $${f} $(appdir); \
-	done
-	@cp -rvf $(parserfolder) $(appdir)
-	@echo "==> create runner"
-	@echo '#!/bin/sh' > $(bindir)/weather_catcher
-	@echo 'cd $(real_appdir);sh ./weather_catcher.sh "$$@"' >> $(bindir)/weather_catcher
-	chmod +x $(bindir)/weather_catcher
-	@echo '#!/bin/sh' > $(bindir)/weather_catcher_conky_example
-	@echo 'cd $(real_appdir);conky -c ./example_conky_rc' >> $(bindir)/weather_catcher_conky_example
-	chmod +x $(bindir)/weather_catcher_conky_example
+	mkdir -p $(pkgdatadir)/parser
+	datafiles=weather_catcher.sh functions.sh \
+	  Makefile README COPYING Changelog example_conky_rc
+	install -m644 $(datafiles) $(pkgdatadir)/
+	install -m644 parser/* $(pkgdatadir)/parser/
+	mkdir -p $(bindir)
+	install -m755 wrapper $(bindir)/weather_catcher
+	install -m755 wrapper_conky_example $(bindir)/weather_catcher_conky_example
 	@echo "==> done."
 
 uninstall :
 	@echo "==> uninstall..."
-	@echo "==> delete data files"
-	@rm -rvf $(appdir)
-	@echo "==> delete runner"
-	@rm -vf $(bindir)/weather_catcher
-	@rm -vf $(bindir)/weather_catcher_conky_example
-	@echo done.
+	rm -rf $(pkgdatadir)
+	rm -f $(bindir)/weather_catcher
+	rm -f $(bindir)/weather_catcher_conky_example
+	@echo "==> done."
 
 ######################################################################
 ### Makefile ends here
