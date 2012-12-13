@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd @PREFIX@/share/weather_catcher
+cd @PREFIX@/share/weather-catcher
 conky -c ./example_conky_rc

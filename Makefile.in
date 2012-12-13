@@ -20,12 +20,12 @@
 ### Code:
 
 DESTDIR=
-prefix=@PREFIX@
+prefix=$(DESTDIR)@PREFIX@
 exec_prefix=$(prefix)
 bindir=$(exec_prefix)/bin
-datarootdir=$(DESTDIR)$(prefix)/share
+datarootdir=$(prefix)/share
 datadir=$(datarootdir)
-appname=weather_catcher
+appname=weather-catcher
 pkgdatadir=$(datadir)/$(appname)
 
 .PHONY : help example-conky install uninstall
@@ -46,11 +46,11 @@ example-weather-cn :
 example-conky :
 	conky -c example_conky_rc
 
+datafiles=weather_catcher.sh functions.sh \
+          Makefile README.markdown COPYING Changelog example_conky_rc
 install :
 	@echo "==> install..."
 	mkdir -p $(pkgdatadir)/parser
-	datafiles=weather_catcher.sh functions.sh \
-	  Makefile README COPYING Changelog example_conky_rc
 	install -m644 $(datafiles) $(pkgdatadir)/
 	install -m644 parser/* $(pkgdatadir)/parser/
 	mkdir -p $(bindir)
