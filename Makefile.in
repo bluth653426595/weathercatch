@@ -52,7 +52,7 @@ install :
 	@echo "==> install..."
 	mkdir -p $(pkgdatadir)/parser
 	install -m644 $(datafiles) $(pkgdatadir)/
-	install -m644 parser/* $(pkgdatadir)/parser/
+	install -m644 parser/*.sh $(pkgdatadir)/parser/
 	mkdir -p $(bindir)
 	install -m755 wrapper $(bindir)/weather_catcher
 	install -m755 wrapper_conky_example $(bindir)/weather_catcher_conky_example
