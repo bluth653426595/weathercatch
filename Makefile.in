@@ -31,7 +31,8 @@ pkgdatadir=$(datadir)/$(appname)
 .PHONY : help example-conky install uninstall
 all : help
 help :
-	@echo "make [install|uninstall|example|example-conky|help] [DESTDIR=\"$(DESTDIR)\"] [prefix=\"$(prefix)\"]"
+	@echo "Usage:"
+	@echo "    make [install|uninstall|example|example-conky|help] [DESTDIR=\"$(DESTDIR)\"] [prefix=\"$(prefix)\"]"
 
 example-google :
 	sh ./weather_catcher.sh -p google -a "weather new york" -d ALL
