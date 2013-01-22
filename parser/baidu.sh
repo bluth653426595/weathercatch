@@ -57,6 +57,7 @@ parse_data () {
     # get other weather data
     weather_block=`echo "$weather_block" | sed -e '1d' -e '$d' | awk 'NF>1'`
     weather_block=`clear_w3m_target_block "$weather_block" "[neverfill]"`
+    weather_block=`clear_w3m_target_block "$weather_block" "[u]"`
     debug_lines "weather block[fixed]" "$weather_block"
     weather_block=`reverse_table "$weather_block"`
     i=0
