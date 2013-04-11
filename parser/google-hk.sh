@@ -33,7 +33,7 @@ parent_script=`get_parser_script google`
 source "$parent_script"
 
 parser_name="google-hk"
-default_arg="weather hongkong"
+default_arg="天氣"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
@@ -119,7 +119,7 @@ google_weather_tag2wt () {
 }
 
 parser_version () {
-    echo "build 20121126"
+    echo "build 20130411"
 }
 
 debug "parser load success"

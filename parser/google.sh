@@ -222,6 +222,7 @@ get_weather_data_hook () {
 
 parser_help () {
     cat <<EOF
+Homepage: www.google.com
 Argument meaning:
     The keyword to search which results will own weather info you
     expect, in fact, it just could be "weather cityname".
@@ -258,7 +259,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121126"
+    echo "build 20130411"
 }
 
 debug "parser load success"

@@ -178,7 +178,7 @@ get_parser_script () {
 ## global variables
 weather_data_file="/tmp/weather_catcher.txt"
 weather_tmp_file="/tmp/weather_catcher.tmp"
-default_parser="google"
+default_parser="google-hk"
 
 ## dispatch options
 parser=

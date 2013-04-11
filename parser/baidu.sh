@@ -121,6 +121,7 @@ parse_data () {
 
 parser_help () {
     cat <<EOF
+Homepage: www.baidu.com
 Argument meaning:
     The keyword to search which results will own weather info you
     expect, in fact, it just could be a city name.
