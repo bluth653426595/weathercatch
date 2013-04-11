@@ -29,7 +29,7 @@
 
 
 parser_name="baidu"
-default_arg="weather"
+default_arg="天气"
 debug "parser_name: $parser_name"
 
 update_weather_data () {
@@ -47,6 +47,21 @@ update_weather_data () {
 }
 
 parse_data () {
+    # get valid AQI info section in the page
+    aqi_block=`get_section_file $weather_tmp_file "空气质量指数" "空气质量细分数据"`
+    debug_lines "AQI block:" "$aqi_block"
+
+    # get AQI value
+    # remove first line and empty lines
+    aqi_block=`echo "$aqi_block" | sed -e '1d' -e '/^$/d'`
+    AQI=`echo "$aqi_block" | head -1 | sed 's/^\([0-9]\+\)$/\1/'`
+
+    # get AQI description
+    AQID=`echo "$aqi_block" | head -2 | tail -1`
+
+    # get AQI tips
+    AQIT=`echo "$aqi_block" | grep '温馨提示' | sed 's/温馨提示：\(.*\)。/\1/'`
+
     # get valid weather info section in the page
     weather_block=`get_section_file $weather_tmp_file "一周天气预报" "中国气象局"`
     debug_lines "weather block:" "$weather_block"
@@ -92,6 +107,13 @@ parse_data () {
         WST=`echo $line | awk '{print $4}'`
         set_data_type "WST" $WST
 
+        # AQI info only exists today
+        if [ $i -eq 0 ]; then
+            set_data_type "AQI" $AQI
+            set_data_type "AQID" $AQID
+            set_data_type "AQIT" $AQIT
+        fi
+
         write_data_types $i
         i=$(($i+1))
     done <<< "$weather_block"
@@ -115,6 +137,9 @@ Support data types:
          [effect by --temp-unit]
     WST: wind speed text
     LN:  location name
+    AQI: AQI(air quality index) value
+    AQID:AQI description
+    AQIT:AQI tips
 Support max future days: 2
 Depends:
     w3m v0.5.3+
@@ -127,7 +152,7 @@ EOF
 }
 
 parser_version () {
-    echo "build 20121113"
+    echo "build 20130411"
 }
 
 debug "parser load success"

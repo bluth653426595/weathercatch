@@ -5,3 +5,4 @@
 Makefile
 wrapper
 wrapper_conky_example
+tmp/
