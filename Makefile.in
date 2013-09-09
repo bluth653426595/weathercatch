@@ -25,7 +25,7 @@ exec_prefix=$(prefix)
 bindir=$(exec_prefix)/bin
 datarootdir=$(prefix)/share
 datadir=$(datarootdir)
-appname=weather-catcher
+appname=weathercatch
 pkgdatadir=$(datadir)/$(appname)
 
 .PHONY : help example-conky install uninstall
@@ -35,18 +35,18 @@ help :
 	@echo "    make [install|uninstall|example|example-conky|help] [DESTDIR=\"$(DESTDIR)\"] [prefix=\"$(prefix)\"]"
 
 example-google :
-	sh ./weather_catcher.sh -p google -a "weather new york" -d ALL
+	sh ./weathercatch.sh -p google -a "weather new york" -d ALL
 example-google-hk :
-	sh ./weather_catcher.sh -p google-hk -a "weather hongkong" -d ALL
+	sh ./weathercatch.sh -p google-hk -a "weather hongkong" -d ALL
 example-baidu :
-	sh ./weather_catcher.sh -p baidu -a weather -d ALL
+	sh ./weathercatch.sh -p baidu -a weather -d ALL
 example-weather-cn :
-	sh ./weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml -d ALL
+	sh ./weathercatch.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml -d ALL
 
 example-conky :
 	conky -c example_conky_rc
 
-datafiles=weather_catcher.sh functions.sh \
+datafiles=weathercatch.sh functions.sh \
           Makefile README.markdown COPYING Changelog example_conky_rc
 install :
 	@echo "==> install..."
@@ -54,15 +54,15 @@ install :
 	install -m644 $(datafiles) $(pkgdatadir)/
 	install -m644 parser/*.sh $(pkgdatadir)/parser/
 	mkdir -p $(bindir)
-	install -m755 wrapper $(bindir)/weather_catcher
-	install -m755 wrapper_conky_example $(bindir)/weather_catcher_conky_example
+	install -m755 wrapper $(bindir)/weathercatch
+	install -m755 wrapper_conky_example $(bindir)/weathercatch_conky_example
 	@echo "==> done."
 
 uninstall :
 	@echo "==> uninstall..."
 	rm -rf $(pkgdatadir)
-	rm -f $(bindir)/weather_catcher
-	rm -f $(bindir)/weather_catcher_conky_example
+	rm -f $(bindir)/weathercatch
+	rm -f $(bindir)/weathercatch_conky_example
 	@echo "==> done."
 
 ######################################################################

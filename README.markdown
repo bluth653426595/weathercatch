@@ -1,37 +1,37 @@
 ## description
 
-weather_catcher is a simple tool to get weather info in the web page
+weathercatch is a simple tool to get weather info in the web page
 through parsing the content, and it have several built-in weather parsers,
 inculde google, baidu, etc.
 
 ## usage
 
-    weather_catcher [-p parser] [-a argument] [-d datatype] [-n nightmode]
+    weathercatch [-p parser] [-a argument] [-d datatype] [-n nightmode]
                     [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
 
 ## examples
 
 - **print help message**
 
-        weather_catcher -h
+        weathercatch -h
 
 - **list built-in parsers and versions**
 
-        weather_catcher -v
+        weathercatch -v
 
 - **print a parser's help message**
 
-        weather_catcher -p google -h
-        weather_catcher -p google-hk -h
-        weather_catcher -p baidu -h
-        weather_catcher -p weather-cn -h
+        weathercatch -p google -h
+        weathercatch -p google-hk -h
+        weathercatch -p baidu -h
+        weathercatch -p weather-cn -h
 
 - **print all weather info today**
 
-        weather_catcher
-        weather_catcher -p google -a "weather new york" -d ALL
-        weather_catcher -p baidu -a "天气" -d ALL
-        weather_catcher -p weather-cn -a "http://www.weather.com.cn/html/weather/101200101.shtml" -d ALL
+        weathercatch
+        weathercatch -p google -a "weather new york" -d ALL
+        weathercatch -p baidu -a "天气" -d ALL
+        weathercatch -p weather-cn -a "http://www.weather.com.cn/html/weather/101200101.shtml" -d ALL
 
   the output maybe like this:
         LN=武汉
@@ -48,16 +48,16 @@ inculde google, baidu, etc.
 
 - **print tomorrow weather's text**
 
-        weather_catcher -d WT -f 1
+        weathercatch -d WT -f 1
 
 - **print weather font code, use night mode**
 
-        weather_catcher -d WF -n night
+        weathercatch -d WF -n night
 
 - **use a custom parser**
 
-        weather_catcher -p builtin_parser_name -a argument
-        weather_catcher -p your_parser.sh -a argument
+        weathercatch -p builtin_parser_name -a argument
+        weathercatch -p your_parser.sh -a argument
 
 ## screenshot by conky
 
@@ -87,10 +87,10 @@ inculde google, baidu, etc.
         make uninstall
 
 ## binary files
-- **/usr/bin/weather\_catcher**
+- **/usr/bin/weathercatch**
 
-  a wrapper to run the main script weather_catcher.sh
+  a wrapper to run the main script weathercatch.sh
 
-- **/usr/bin/weather\_catcher\_conky\_example**
+- **/usr/bin/weathercatch\_conky\_example**
 
   just for showing the conky example

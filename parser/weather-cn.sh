@@ -1,16 +1,16 @@
 # weather-cn.sh ---
 #
 # Filename: weather-cn.sh
-# Description: a parser fo weather_catcher
+# Description: a parser fo weathercatch
 # Author: Xu FaSheng
 # Created: 2012.11.09
-# Keywords: weather_catcher parser weather-cn
-# Compatibility: weather_catcher_v0.1
+# Keywords: weathercatch parser weather-cn
+# Compatibility: weathercatch_v0.1
 #   depends on w3m v0.5.3
 #   May work on older versions but this is not guaranteed.
 #
 
-# This file is a part of weather_catcher
+# This file is a part of weathercatch
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -207,7 +207,7 @@ Support max future days: 6
 Depends:
     w3m v0.5.3+
 Compatibility:
-    works well on weather_catcher_v0.2
+    works well on weathercatch_v0.2
     May work on older versions but this is not guaranteed.
 Limits:
     Should only work for Chinese friends.

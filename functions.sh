@@ -1,7 +1,7 @@
 # functions.sh ---
 #
 # Filename: functions.sh
-# Description: assistent functions for weather_catcher
+# Description: assistent functions for weathercatch
 # Author: Xu FaSheng
 # Created: 2012.11.06
 # Last-Updated:
@@ -9,7 +9,7 @@
 #     Update #: 0
 # Keywords: assistant function
 
-# This file is a part of weather_catcher
+# This file is a part of weathercatch
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as

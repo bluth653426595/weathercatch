@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd @PREFIX@/share/weather-catcher
-sh ./weather_catcher.sh $@
+cd @PREFIX@/share/weathercatch
+sh ./weathercatch.sh $@

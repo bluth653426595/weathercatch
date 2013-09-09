@@ -1,15 +1,15 @@
 #!/bin/sh
 
-# weather_catcher.sh ---
+# weathercatch.sh ---
 #
-# Filename: weather_catcher.sh
+# Filename: weathercatch.sh
 # Description: a simple tool to get weather info in the web page through parsing the content
 # Author: Xu FaSheng
 # Created: 2012.11.05
 # Keywords: weather web parse
 #
 
-# This file is a part of weather_catcher
+# This file is a part of weathercatch
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -33,10 +33,10 @@
 help () {
     cat <<EOF
 Description:
-    weather_catcher is a simple tool to get weather info in the web page through parsing the content.
+    weathercatch is a simple tool to get weather info in the web page through parsing the content.
 
 Usage:
-    weather_catcher.sh [-p parser] [-a argument] [-d datatype] [-n nightmode] [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
+    weathercatch.sh [-p parser] [-a argument] [-d datatype] [-n nightmode] [-f futureday] [-t tempunit] [-l] [-D] [-h] [-v]
 
 Options:
     -p, --parser=[PARSER]
@@ -117,20 +117,20 @@ Depends:
 
 Examples:
     - print help message
-      weather_catcher.sh -h
+      weathercatch.sh -h
     - print version and built-in parsers
-      weather_catcher.sh -v
+      weathercatch.sh -v
     - print a parser's help message
-      weather_catcher.sh -p google -h
+      weathercatch.sh -p google -h
     - print all weather info today
-      weather_catcher.sh
-      weather_catcher.sh -p google -a "weather new york" -d ALL
+      weathercatch.sh
+      weathercatch.sh -p google -a "weather new york" -d ALL
     - print tomorrow's weather text
-      weather_catcher.sh -d WT -f 1
+      weathercatch.sh -d WT -f 1
     - print weather font, use night mode
-      weather_catcher.sh -d WF -n night
+      weathercatch.sh -d WF -n night
     - use a custom parser
-      weather_catcher.sh -p your_parser.sh -a argument
+      weathercatch.sh -p your_parser.sh -a argument
 
 EOF
     exit 1
@@ -176,8 +176,8 @@ get_parser_script () {
 }
 
 ## global variables
-weather_data_file="/tmp/weather_catcher.txt"
-weather_tmp_file="/tmp/weather_catcher.tmp"
+weather_data_file="/tmp/weathercatch.txt"
+weather_tmp_file="/tmp/weathercatch.tmp"
 default_parser="google-hk"
 
 ## dispatch options

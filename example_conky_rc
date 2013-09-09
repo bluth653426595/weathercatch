@@ -42,17 +42,17 @@ color1 ddaa00
 template0 WenQuanYi Zen Hei Mono
 
 #** weather template
-template1 cd .; sh weather_catcher.sh -p baidu -a tianqi
-template2 cd .; sh weather_catcher.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml
-template3 cd .; sh weather_catcher.sh -p google -a "weather new york"
-template4 cd .; sh weather_catcher.sh -p google-hk -a "weather hongkong"
+template1 cd .; sh weathercatch.sh -p baidu -a tianqi
+template2 cd .; sh weathercatch.sh -p weather-cn -a www.weather.com.cn/weather/101010100.shtml
+template3 cd .; sh weathercatch.sh -p google -a "weather new york"
+template4 cd .; sh weathercatch.sh -p google-hk -a "weather hongkong"
 
 #* text
 TEXT
 #** basic
 ${font}${voffset 5}${color0}${alignc}${nodename} -- ${uptime_short}
 
-#** weather_catcher, google parser
+#** weathercatch, google parser
 ${color0}${font size=9}parser google:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template3 -d CWF}${font}
@@ -63,7 +63,7 @@ ${color}${offset 85}wind: ${execi 3600 $template3 -d WD -l} at ${execi 3600 $tem
 ${color0}${voffset 5}  today: ${execi 3600 $template3 -d WT -l} ${execi 3600 $template3 -d LT -l}~${execi 3600 $template3 -d HT -l}C  hm: ${execi 3600 $template3 -d HM -l}%
 ${color0}${voffset 5}  tomorrow: ${execi 3600 $template3 -d WT -l} ${execi 3600 $template3 -d LT -l -f 1}~${execi 3600 $template3 -d HT -l -f 1} C
 
-#** weather_catcher, google-hk parser
+#** weathercatch, google-hk parser
 ${color0}${font size=9}parser google-hk:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template4 -d CWF}${font}
@@ -74,7 +74,7 @@ ${color}${offset 85}${font $template0:size=9}${execi 3600 $template4 -d WD -l}�
 ${color0}${voffset 5}${font $template0:size=9}  今天: ${execi 3600 $template4 -d WT -l} ${execi 3600 $template4 -d LT -l}~${execi 3600 $template4 -d HT -l}C  湿度: ${execi 3600 $template4 -d HM -l}%${font}
 ${color0}${voffset 5}${font $template0:size=9}  明天: ${execi 3600 $template4 -d WT -l} ${execi 3600 $template4 -d LT -l -f 1}~${execi 3600 $template4 -d HT -l -f 1} C${font}
 
-#** weather_catcher, baidu parser
+#** weathercatch, baidu parser
 ${color0}${font size=9}parser baidu:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template1 -d WF}${font}
@@ -84,7 +84,7 @@ ${color1}${voffset 3}${offset 85}${font size=12}${execi 3600 $template1 -d LT -l
 ${color}${voffset -1}${offset 85}${font $template0:size=9}${execi 3600 $template1 -d WST -l}${font}
 ${color0}${voffset 5}${font $template0:size=9}  明日: ${execi 3600 $template1 -d WT -l -f 1}  ${font}${execi 3600 $template1 -d LT -l -f 1}~${execi 3600 $template1 -d HT -l -f 1} C
 
-#** weather_catcher, weather-cn parser
+#** weathercatch, weather-cn parser
 ${color0}${font size=9}parser weather-cn:
 
 ${color0}${voffset -5}${offset 8}${font Weather:size=64}${execi 3600 $template2 -d WF}${font}
