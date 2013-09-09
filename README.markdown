@@ -61,9 +61,9 @@ inculde google, baidu, etc.
 
 ## screenshot by conky
 
-![conky_example_google](img/conky_example_google.png "Parse google")
-![conky_example_google_hk](img/conky_example_google_hk.png "Parse google-hk")
-![conky_example_weather_cn](img/conky_example_weather_cn.png "Parse weather-cn")
+\_\_![conky_example_weather_cn](img/conky_example_weather_cn.png "Parse !weather-cn")
+\_\_![conky_example_google_hk](img/conky_example_google_hk.png "Parse !google-hk")
+\_\_![conky_example_google](img/conky_example_google.png "Parse google")
 
 ## install and uninstall
 
