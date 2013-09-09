@@ -137,7 +137,7 @@ EOF
 }
 
 version () {
-    echo "version 0.2"
+    echo "version 0.3"
     echo "built-in parsers:"
     for p in ./parser/*.sh; do
         debug $p

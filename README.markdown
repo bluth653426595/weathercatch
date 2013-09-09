@@ -59,7 +59,7 @@ inculde google, baidu, etc.
         weathercatch -p builtin_parser_name -a argument
         weathercatch -p your_parser.sh -a argument
 
-## screenshot by conky
+## conky screenshots
 
 &nbsp;&nbsp;![conky_example_weather_cn](img/conky_example_weather_cn.png "Parse !weather-cn")
 &nbsp;&nbsp;![conky_example_google_hk](img/conky_example_google_hk.png "Parse !google-hk")

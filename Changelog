@@ -1,3 +1,7 @@
+- 0.2 2013.09.09
+  + rename project name from weather-catcher to weathercatch
+  + [add] conky screenshots
+  + [update] REAME.markdown
 - 0.2 2012.11.12
   + [add] parser google
   + [add] parser google-hk
